@@ -22,7 +22,15 @@ export function I18nProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const saved = window.localStorage.getItem("cc-lang");
-    if (saved === "pt" || saved === "es") setLangState(saved);
+    if (saved === "pt" || saved === "es") {
+      setLangState(saved);
+      return;
+    }
+    // No stored preference yet: infer from the browser's language list.
+    // Spanish speakers get ES; everyone else (incl. Brazilian/European
+    // Portuguese and any other locale) falls back to PT, the primary market.
+    const detected = (navigator.languages?.[0] ?? navigator.language ?? "").toLowerCase();
+    if (detected.startsWith("es")) setLangState("es");
   }, []);
 
   useEffect(() => {

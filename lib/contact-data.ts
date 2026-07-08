@@ -18,10 +18,11 @@ export const contactData: Record<Lang, ContactInfo> = {
     whatsappHref: "https://wa.me/351933659117",
     email: "portugal@conceptualcity.com",
     address: "Av. da Liberdade 706 1º Esq, 4710-249 Braga",
-    mapEmbedSrc:
-      "https://maps.google.com/maps?q=" +
-      encodeURIComponent("Av. da Liberdade 706 1º Esq, 4710-249 Braga") +
-      "&output=embed",
+    // Pinned by coordinates (not the text address) so the embed drops a single
+    // marker — a text query at this building resolves to several registered
+    // businesses and Google renders a multi-result search view instead of one pin.
+    // Coordinates match Manteigaria (Av. da Liberdade 712), right next to no. 706.
+    mapEmbedSrc: "https://maps.google.com/maps?q=41.5504048,-8.4222549&z=18&output=embed",
   },
   es: {
     phone: "+34 649 803 134",
@@ -30,9 +31,6 @@ export const contactData: Record<Lang, ContactInfo> = {
     whatsappHref: "https://wa.me/34649803134",
     email: "cityconceptual@gmail.com",
     address: "La Telva 2C - 15181, Cambre - A Coruña",
-    mapEmbedSrc:
-      "https://maps.google.com/maps?q=" +
-      encodeURIComponent("La Telva 2C - 15181, Cambre - A Coruña") +
-      "&output=embed",
+    mapEmbedSrc: "https://maps.google.com/maps?q=43.2961589,-8.3597759&z=16&output=embed",
   },
 };

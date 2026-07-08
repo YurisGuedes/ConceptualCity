@@ -10,6 +10,7 @@ import { Projects } from "@/components/sections/projects";
 import { Process } from "@/components/sections/process";
 import { CtaBand } from "@/components/sections/cta-band";
 import { Contact } from "@/components/sections/contact";
+import { CareersForm } from "@/components/sections/careers-form";
 
 export default function Home() {
   return (
@@ -26,6 +27,7 @@ export default function Home() {
         <Process />
         <CtaBand />
         <Contact />
+        <CareersForm />
       </main>
       <SiteFooter />
     </>

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { I18nProvider } from "@/lib/i18n-context";
 import { ScrollEffects } from "@/components/scroll-effects";
@@ -7,6 +7,11 @@ export const metadata: Metadata = {
   title: "Conceptual City — Mão de obra qualificada para construção | Portugal e Espanha",
   description:
     "Equipas profissionais especializadas para construção, obra civil e infraestrutura em Portugal e Espanha. Integração rápida, mobilidade e organização.",
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0B0B0E",
+  colorScheme: "dark",
 };
 
 export default function RootLayout({

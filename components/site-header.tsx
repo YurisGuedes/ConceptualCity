@@ -16,6 +16,10 @@ export function SiteHeader() {
     return () => removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    document.body.classList.toggle("menu-open", open);
+  }, [open]);
+
   const links: { href: string; key: string }[] = [
     { href: "#top", key: "nav.home" },
     { href: "#about", key: "nav.about" },
