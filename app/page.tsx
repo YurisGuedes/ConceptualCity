@@ -1,0 +1,33 @@
+import { SiteHeader } from "@/components/site-header";
+import { SiteFooter } from "@/components/site-footer";
+import { Hero } from "@/components/sections/hero";
+import { About } from "@/components/sections/about";
+import { Strip } from "@/components/sections/strip";
+import { Services } from "@/components/sections/services";
+import { Trades } from "@/components/sections/trades";
+import { Pillars } from "@/components/sections/pillars";
+import { Projects } from "@/components/sections/projects";
+import { Process } from "@/components/sections/process";
+import { CtaBand } from "@/components/sections/cta-band";
+import { Contact } from "@/components/sections/contact";
+
+export default function Home() {
+  return (
+    <>
+      <SiteHeader />
+      <main id="top">
+        <Hero />
+        <About />
+        <Strip />
+        <Services />
+        <Trades />
+        <Pillars />
+        <Projects />
+        <Process />
+        <CtaBand />
+        <Contact />
+      </main>
+      <SiteFooter />
+    </>
+  );
+}
