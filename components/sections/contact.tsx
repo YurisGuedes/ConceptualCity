@@ -1,6 +1,6 @@
 "use client";
 
-import { Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
 import { useI18n } from "@/lib/i18n-context";
 import { contactData } from "@/lib/contact-data";
 
@@ -23,15 +23,6 @@ export function Contact() {
                 <div>
                   <div className="lbl">{t("crow.phone")}</div>
                   <div className="val">{info.phone}</div>
-                </div>
-              </a>
-              <a href={info.whatsappHref} target="_blank" rel="noopener" className="crow">
-                <span className="ic">
-                  <MessageCircle />
-                </span>
-                <div>
-                  <div className="lbl">{t("crow.whatsapp")}</div>
-                  <div className="val">{info.whatsapp}</div>
                 </div>
               </a>
               <a href={`mailto:${info.email}`} className="crow">

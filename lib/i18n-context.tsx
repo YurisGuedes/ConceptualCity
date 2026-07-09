@@ -21,8 +21,13 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<Lang>("pt");
 
   useEffect(() => {
+    // Reads localStorage/navigator, both unavailable during SSR — lang must
+    // start as "pt" on server and first client render to avoid a hydration
+    // mismatch, then get corrected here once mounted. That's why this can't
+    // be a lazy useState initializer instead.
     const saved = window.localStorage.getItem("cc-lang");
     if (saved === "pt" || saved === "es") {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setLangState(saved);
       return;
     }

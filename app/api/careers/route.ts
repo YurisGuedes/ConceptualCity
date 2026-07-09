@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { resend, CAREERS_FROM, CAREERS_TO } from "@/lib/resend";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MAX_CV_BYTES = 5 * 1024 * 1024; // 5MB
@@ -33,17 +34,44 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "cv_too_large" }, { status: 400 });
   }
 
-  // TODO: once Resend is configured, send the notification email here,
-  // attaching the CV buffer (await cv.arrayBuffer()) if present, e.g.
-  //   const resend = new Resend(process.env.RESEND_API_KEY);
-  //   await resend.emails.send({ from, to, subject, attachments: [...] });
-  console.log("[careers] new application", {
-    name,
-    email,
-    phone,
-    message,
-    cv: hasCv ? { name: cv.name, size: cv.size, type: cv.type } : null,
+  if (!resend) {
+    // No RESEND_API_KEY configured yet (e.g. local dev) — log so the flow is
+    // still verifiable end-to-end, but don't fail the request over it.
+    console.warn("[careers] RESEND_API_KEY not set — application logged only, no email sent", {
+      name,
+      email,
+      phone,
+      message,
+      cv: hasCv ? { name: cv.name, size: cv.size, type: cv.type } : null,
+    });
+    return NextResponse.json({ ok: true });
+  }
+
+  const attachments = hasCv
+    ? [{ filename: cv.name, content: Buffer.from(await cv.arrayBuffer()) }]
+    : undefined;
+
+  const { error } = await resend.emails.send({
+    from: CAREERS_FROM,
+    to: CAREERS_TO,
+    replyTo: email,
+    subject: `Nova candidatura — ${name}`,
+    text: [
+      `Nome: ${name}`,
+      `Email: ${email}`,
+      phone ? `Telefone: ${phone}` : null,
+      "",
+      message || "(sem mensagem)",
+    ]
+      .filter((line): line is string => line !== null)
+      .join("\n"),
+    attachments,
   });
+
+  if (error) {
+    console.error("[careers] resend send failed", error);
+    return NextResponse.json({ ok: false, error: "send_failed" }, { status: 502 });
+  }
 
   return NextResponse.json({ ok: true });
 }

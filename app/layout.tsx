@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { I18nProvider } from "@/lib/i18n-context";
 import { ScrollEffects } from "@/components/scroll-effects";
+import { WhatsappFab } from "@/components/whatsapp-fab";
 
 export const metadata: Metadata = {
   title: "Conceptual City — Mão de obra qualificada para construção | Portugal e Espanha",
@@ -33,6 +34,7 @@ export default function RootLayout({
         <I18nProvider>
           <ScrollEffects />
           {children}
+          <WhatsappFab />
         </I18nProvider>
       </body>
     </html>
