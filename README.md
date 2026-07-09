@@ -74,12 +74,11 @@ required privacy-policy consent checkbox linking to `/privacidade`.
 
 Minimal but real GDPR/RGPD notice (data collected, purpose, retention,
 rights), written to actually support the careers form's consent checkbox.
-**Pending:** the company's legal/registered name and NIPC (Portuguese
-tax/company number) — needed to complete this into a full "Aviso Legal" as
-required by Portuguese e-commerce law (Decree-Law 7/2004). The user said to
-leave this for later; the page currently has an inline note flagging it as
-incomplete. Don't invent a NIPC or legal name — ask the user when it's time
-to finish this.
+The page still has an inline note flagging the legal identity as pending —
+that's now resolved (see SEO section below: Jesus Lamas Alvarez, NIF
+76356554G, sole proprietor, no NIPC), just not yet written into the page
+content. That update, plus the Aviso Legal / Cookies / Acessibilidade pages,
+is planned but not started — see "Known pending items."
 
 ## Sister company: nudimu.es
 
@@ -103,11 +102,57 @@ The Spain (Cambre) pin is only street-level accurate, not verified to the
 exact house number — good enough visually, but worth double-checking if it
 ever matters precisely.
 
+## SEO
+
+There's a live sister site, [conceptualcity.es](https://www.conceptualcity.es),
+built by an agency (Beedigital) — real registered identity was pulled from
+its Aviso Legal page: **Jesus Lamas Alvarez**, NIF `76356554G`, sole
+proprietor (not a registered company — there's no NIPC, that assumption from
+earlier was wrong). That's now in `lib/site-config.ts` and used in the JSON-LD
+below. Its legal pages cite **Spanish** law even on the `/pt` path (looks like
+one boilerplate reused for both markets, not actually localized) — decided
+**not** to copy that as-is; Conceptual City's own legal pages should cite
+Portuguese law (Lei 58/2019 + CNPD) for the PT side once written (still
+pending — see below).
+
+The SEO work is planned in phases; **Phase 1 (technical foundations) is done**:
+
+- `app/robots.ts`, `app/sitemap.ts` — sitemap currently only lists `/` and
+  `/privacidade`, the only two real routes that exist today. Add every new
+  route here as Phase 2/3 pages get built.
+- `app/layout.tsx` — `metadataBase`, canonical, Open Graph + Twitter card
+  metadata. **Known limitation:** this is all server-rendered and therefore
+  PT-only — the ES version only ever patches `<title>`/meta description
+  client-side after the language toggle fires (see `lib/i18n-context.tsx`),
+  so crawlers never see it. Real per-language `<head>` output needs Phase 2's
+  routing.
+- `components/structured-data.tsx` — JSON-LD (`EmploymentAgency`), one node
+  per country (PT/ES) rather than one node with two addresses, matching
+  Google's structured-data guidance for multi-location businesses.
+- `lib/site-config.ts` — `SITE_URL` (fed by `NEXT_PUBLIC_SITE_URL`, currently
+  falls back to the `.vercel.app` URL — **set this env var once a custom
+  domain goes live**, it feeds metadataBase/canonical/sitemap/robots/JSON-LD
+  everywhere), `SITE_NAME`, `LEGAL_NAME`.
+- Alt-text and heading-hierarchy audit: already clean, nothing to fix (every
+  `<img>` has descriptive alt text, exactly one `<h1>` per page).
+
+**Not done yet** — Phase 2 (real per-language routes + dedicated service/
+about/contact pages, fixes the PT-only-crawlable problem above — this is the
+single biggest remaining SEO lever) and Phase 3 (blog/insights content, city
+pages, case studies). Ask the user before starting Phase 2, it's a real
+restructuring that touches nearly every route.
+
 ## Known pending items (don't forget these)
 
-- Company legal name + NIPC (blocks the full legal notice — see above).
+- Legal pages beyond `/privacidade`: Aviso Legal, Política de Cookies,
+  Declaração de Acessibilidade — content plan agreed (Portugal-correct law,
+  honest cookie audit, accessibility *commitment* rather than a compliance
+  claim under a Spanish public-sector law that doesn't apply) but not yet
+  written. Real identity to use: Jesus Lamas Alvarez, NIF 76356554G (see SEO
+  section above) — no NIPC needed, this isn't a registered company.
 - Whether to reference the Nudimu group relationship in on-site copy.
 - No B2B quote-request form currently exists (see Forms section above).
+- SEO Phase 2 (real routes) and Phase 3 (content) — see SEO section above.
 - More real photos are welcome any time — drop in `source-images/`, they'll
   get optimized into `public/img/` and slotted into the relevant section.
 
