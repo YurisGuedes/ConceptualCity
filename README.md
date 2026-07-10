@@ -70,15 +70,29 @@ required privacy-policy consent checkbox linking to `/privacidade`.
    application to the server console and returns success, so the form UX is
    still testable before the key exists.
 
-## Privacy policy (`/privacidade`)
+## Legal pages
 
-Minimal but real GDPR/RGPD notice (data collected, purpose, retention,
-rights), written to actually support the careers form's consent checkbox.
-The page still has an inline note flagging the legal identity as pending —
-that's now resolved (see SEO section below: Jesus Lamas Alvarez, NIF
-76356554G, sole proprietor, no NIPC), just not yet written into the page
-content. That update, plus the Aviso Legal / Cookies / Acessibilidade pages,
-is planned but not started — see "Known pending items."
+Four pages, all under `components/legal-page-layout.tsx` (shared shell: logo,
+back link, title, updated date), all linked from the footer (`.foot-legal`),
+all in `app/sitemap.ts`:
+
+- `/privacidade` — GDPR/RGPD notice (data collected, purpose, retention,
+  rights). Real identity: **Jesus Lamas Alvarez, NIF 76356554G**, sole
+  proprietor — pulled from the sister site's Aviso Legal (see SEO section).
+  PT cites Lei 58/2019 + CNPD, ES cites the AEPD — correct per-jurisdiction,
+  not copied wholesale from the sister site (which uses Spanish law on both
+  its `/pt` and default paths).
+- `/aviso-legal` — legal notice per Portuguese e-commerce law (Decree-Law
+  7/2004 Art. 10): identity, object, IP, access terms, liability, applicable
+  law. ES version mirrors it under Spanish law instead.
+- `/politica-de-cookies` — deliberately NOT copied from the sister site (its
+  cookie page has no real content, just an empty cookie-consent widget).
+  Written to describe what this site actually does: no third-party/analytics
+  cookies, only the `cc-lang` localStorage preference.
+- `/declaracao-de-acessibilidade` — framed as a WCAG 2.1 AA **commitment**,
+  not a compliance claim. The sister site cites RD 1112/2018 (Spanish
+  *public-sector* web accessibility law) even though it's a private company
+  — that's not actually applicable, so this doesn't repeat that claim.
 
 ## Sister company: nudimu.es
 
@@ -117,8 +131,8 @@ pending — see below).
 
 The SEO work is planned in phases; **Phase 1 (technical foundations) is done**:
 
-- `app/robots.ts`, `app/sitemap.ts` — sitemap currently only lists `/` and
-  `/privacidade`, the only two real routes that exist today. Add every new
+- `app/robots.ts`, `app/sitemap.ts` — sitemap currently lists `/` and the
+  four legal pages, the only real routes that exist today. Add every new
   route here as Phase 2/3 pages get built.
 - `app/layout.tsx` — `metadataBase`, canonical, Open Graph + Twitter card
   metadata. **Known limitation:** this is all server-rendered and therefore
@@ -136,6 +150,8 @@ The SEO work is planned in phases; **Phase 1 (technical foundations) is done**:
 - Alt-text and heading-hierarchy audit: already clean, nothing to fix (every
   `<img>` has descriptive alt text, exactly one `<h1>` per page).
 
+**Phase 0 (legal pages) is also done** — see "Legal pages" section above.
+
 **Not done yet** — Phase 2 (real per-language routes + dedicated service/
 about/contact pages, fixes the PT-only-crawlable problem above — this is the
 single biggest remaining SEO lever) and Phase 3 (blog/insights content, city
@@ -144,12 +160,6 @@ restructuring that touches nearly every route.
 
 ## Known pending items (don't forget these)
 
-- Legal pages beyond `/privacidade`: Aviso Legal, Política de Cookies,
-  Declaração de Acessibilidade — content plan agreed (Portugal-correct law,
-  honest cookie audit, accessibility *commitment* rather than a compliance
-  claim under a Spanish public-sector law that doesn't apply) but not yet
-  written. Real identity to use: Jesus Lamas Alvarez, NIF 76356554G (see SEO
-  section above) — no NIPC needed, this isn't a registered company.
 - Whether to reference the Nudimu group relationship in on-site copy.
 - No B2B quote-request form currently exists (see Forms section above).
 - SEO Phase 2 (real routes) and Phase 3 (content) — see SEO section above.

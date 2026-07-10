@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useI18n } from "@/lib/i18n-context";
 import { contactData } from "@/lib/contact-data";
 
@@ -41,6 +42,12 @@ export function SiteFooter() {
         </div>
         <div className="foot-bottom">
           <span>{t("footer.rights")}</span>
+          <div className="foot-legal">
+            <Link href="/aviso-legal">{t("legal.title")}</Link>
+            <Link href="/privacidade">{t("privacy.title")}</Link>
+            <Link href="/politica-de-cookies">{t("cookies.title")}</Link>
+            <Link href="/declaracao-de-acessibilidade">{t("accessibility.title")}</Link>
+          </div>
           <span>Portugal · España</span>
         </div>
       </div>
