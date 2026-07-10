@@ -3,6 +3,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { useI18n } from "@/lib/i18n-context";
+import { WhatsappFab } from "@/components/whatsapp-fab";
 
 export function LegalPageLayout({
   titleKey,
@@ -28,6 +29,7 @@ export function LegalPageLayout({
         {introKey && <p className="legal-intro">{t(introKey)}</p>}
         {children}
       </div>
+      <WhatsappFab />
     </main>
   );
 }

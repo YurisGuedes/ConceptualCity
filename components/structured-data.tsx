@@ -8,7 +8,7 @@ const listings = [
   {
     "@context": "https://schema.org",
     "@type": "EmploymentAgency",
-    "@id": `${SITE_URL}/#pt`,
+    "@id": `${SITE_URL}/#business`,
     name: SITE_NAME,
     legalName: LEGAL_NAME,
     url: SITE_URL,
@@ -28,10 +28,10 @@ const listings = [
   {
     "@context": "https://schema.org",
     "@type": "EmploymentAgency",
-    "@id": `${SITE_URL}/#es`,
+    "@id": `${SITE_URL}/es#business`,
     name: SITE_NAME,
     legalName: LEGAL_NAME,
-    url: SITE_URL,
+    url: `${SITE_URL}/es`,
     logo: `${SITE_URL}/img/logo-conceptualcity.png`,
     image: `${SITE_URL}/img/hero-sunset.jpg`,
     telephone: "+34649803134",

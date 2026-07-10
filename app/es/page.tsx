@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { WhatsappFab } from "@/components/whatsapp-fab";
-import { LocaleRedirect } from "@/components/locale-redirect";
 import { Hero } from "@/components/sections/hero";
 import { About } from "@/components/sections/about";
 import { Strip } from "@/components/sections/strip";
@@ -15,18 +14,33 @@ import { CtaBand } from "@/components/sections/cta-band";
 import { Contact } from "@/components/sections/contact";
 import { CareersForm } from "@/components/sections/careers-form";
 import { I18nProvider } from "@/lib/i18n-context";
+import { translations } from "@/lib/translations";
+
+const TITLE = translations.es["meta.title"];
+const DESCRIPTION = translations.es["meta.description"];
 
 export const metadata: Metadata = {
+  title: TITLE,
+  description: DESCRIPTION,
   alternates: {
-    canonical: "/",
+    canonical: "/es",
     languages: { "pt-PT": "/", "es-ES": "/es", "x-default": "/" },
+  },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: "/es",
+    locale: "es_ES",
+  },
+  twitter: {
+    title: TITLE,
+    description: DESCRIPTION,
   },
 };
 
-export default function Home() {
+export default function HomeEs() {
   return (
-    <I18nProvider fixedLang="pt">
-      <LocaleRedirect />
+    <I18nProvider fixedLang="es">
       <SiteHeader />
       <main id="top">
         <Hero />

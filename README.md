@@ -129,40 +129,84 @@ one boilerplate reused for both markets, not actually localized) — decided
 Portuguese law (Lei 58/2019 + CNPD) for the PT side once written (still
 pending — see below).
 
-The SEO work is planned in phases; **Phase 1 (technical foundations) is done**:
+The SEO work is planned in phases. **Phase 0, 1, and (the routing half of)
+Phase 2 are all done.**
 
-- `app/robots.ts`, `app/sitemap.ts` — sitemap currently lists `/` and the
-  four legal pages, the only real routes that exist today. Add every new
-  route here as Phase 2/3 pages get built.
+**Phase 1 — technical foundations:**
+
+- `app/robots.ts`, `app/sitemap.ts` — every real route is listed, `/` and
+  `/es` carry `alternates.languages` (hreflang) pointing at each other.
 - `app/layout.tsx` — `metadataBase`, canonical, Open Graph + Twitter card
-  metadata. **Known limitation:** this is all server-rendered and therefore
-  PT-only — the ES version only ever patches `<title>`/meta description
-  client-side after the language toggle fires (see `lib/i18n-context.tsx`),
-  so crawlers never see it. Real per-language `<head>` output needs Phase 2's
-  routing.
+  metadata (PT default/fallback — see Phase 2 below for the real per-language
+  version).
 - `components/structured-data.tsx` — JSON-LD (`EmploymentAgency`), one node
   per country (PT/ES) rather than one node with two addresses, matching
-  Google's structured-data guidance for multi-location businesses.
+  Google's structured-data guidance for multi-location businesses. `url` on
+  each node now points at its real route (`/` vs `/es`).
 - `lib/site-config.ts` — `SITE_URL` (fed by `NEXT_PUBLIC_SITE_URL`, currently
   falls back to the `.vercel.app` URL — **set this env var once a custom
   domain goes live**, it feeds metadataBase/canonical/sitemap/robots/JSON-LD
   everywhere), `SITE_NAME`, `LEGAL_NAME`.
-- Alt-text and heading-hierarchy audit: already clean, nothing to fix (every
-  `<img>` has descriptive alt text, exactly one `<h1>` per page).
+- Alt-text and heading-hierarchy audit: already clean, nothing to fix.
 
-**Phase 0 (legal pages) is also done** — see "Legal pages" section above.
+**Phase 2 — real per-language routes** (the biggest lever: ES content used
+to be invisible to crawlers, only reachable via a client-side toggle on the
+same PT URL):
 
-**Not done yet** — Phase 2 (real per-language routes + dedicated service/
-about/contact pages, fixes the PT-only-crawlable problem above — this is the
-single biggest remaining SEO lever) and Phase 3 (blog/insights content, city
-pages, case studies). Ask the user before starting Phase 2, it's a real
-restructuring that touches nearly every route.
+- `/` (PT) and `/es` (ES) are now two real, independently server-rendered
+  pages — verified with plain `curl` (no JS execution) that each returns its
+  own `<title>`, `<h1>`, and body copy in the right language. Each has its
+  own `metadata` export (title/description/OG locale) plus
+  `alternates.canonical` + `alternates.languages` (hreflang, both directions
+  + `x-default` → `/`).
+- `lib/i18n-context.tsx` — `I18nProvider` now takes an optional `fixedLang`
+  prop. Set (on `/` and `/es`): language comes from the URL, no
+  localStorage/browser detection, and the header's PT/ES toggle does a real
+  `router.push` between the two routes instead of just flipping local state.
+  Unset (the four legal pages, still wrapped by the root layout's provider):
+  unchanged client-detected/toggleable behavior — **legal pages don't have
+  their own `/es/...` routes yet**, they stay single-URL and infer language
+  from `localStorage`, which `/` and `/es` keep in sync on every visit
+  (including a direct/organic landing, not just a toggle click) so a visitor
+  who was just on `/es` and clicks through to `/privacidade` sees it in
+  Spanish. Verified with Playwright.
+- `components/locale-redirect.tsx` — rendered only on `/`. First-ever visit,
+  no stored preference yet, Spanish browser language → `router.replace`
+  to `/es`. Never fires again once a preference is recorded (won't fight a
+  visitor who deliberately navigates back to `/`). This replaces the old
+  content-swap auto-detect with a real navigation. Verified with Playwright
+  using both `es-ES` and `pt-PT` browser locales.
+- `WhatsappFab` moved from the root layout into each page tree individually
+  (`app/page.tsx`, `app/es/page.tsx`, `components/legal-page-layout.tsx`) —
+  it has to be a descendant of whichever `I18nProvider` is active to show the
+  right country's phone number. It was rendered as a sibling of `{children}`
+  in the root layout before, which would've shown the PT number on `/es`.
+  Verified per-route with Playwright (`wa.me/351...` vs `wa.me/34...`).
+- **Known limitation:** `<html lang="...">` is still hardcoded `"pt"` in the
+  root layout and only gets corrected client-side after mount (same
+  `document.documentElement.lang = lang` effect as before). Only the root
+  layout can render `<html>`/`<body>` in the App Router, so getting this
+  server-side-correct on `/es` needs converting to an `app/[lang]/layout.tsx`
+  dynamic-segment structure — a bigger refactor than this pass, and the
+  content/title/hreflang (the parts that actually matter most for ranking)
+  are already correct server-side. Low priority to fix, but real.
+
+**Not done yet — the rest of Phase 2 and all of Phase 3:** dedicated
+service/about/contact pages as real routes (currently still anchor sections
+within `/` and `/es`, not separately indexable — this was the other half of
+the original Phase 2 plan and didn't happen in this pass), blog/insights
+content, city/region pages, case studies.
 
 ## Known pending items (don't forget these)
 
 - Whether to reference the Nudimu group relationship in on-site copy.
 - No B2B quote-request form currently exists (see Forms section above).
-- SEO Phase 2 (real routes) and Phase 3 (content) — see SEO section above.
+- Rest of SEO Phase 2 (dedicated service/about/contact pages as real routes)
+  and all of Phase 3 (content) — see SEO section above.
+- `<html lang>` is still server-side hardcoded to `"pt"` — see SEO section's
+  "Known limitation" for why and what fixing it properly would take.
+- Legal pages don't have `/es/...` equivalents yet — still single-URL,
+  client-detected language (kept in sync from `/` and `/es`, see SEO section).
 - More real photos are welcome any time — drop in `source-images/`, they'll
   get optimized into `public/img/` and slotted into the relevant section.
 
