@@ -1,12 +1,18 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 /** Ports the original vanilla reveal-on-scroll + service-card tilt
- * interactions. Runs once on mount; the observed/attached DOM nodes stay
- * the same across language-toggle re-renders, so this doesn't need to
- * re-run when translations change. */
+ * interactions. Re-runs on every route change: "/" and "/es" share the root
+ * layout this is mounted in, so a client-side navigation between them does
+ * NOT remount this component. Without re-scanning on pathname change, the
+ * observer keeps watching the old page's (now-removed) DOM nodes and never
+ * sees the new page's .reveal/.stagger elements — they'd stay stuck at
+ * opacity:0 until a hard reload. */
 export function ScrollEffects() {
+  const pathname = usePathname();
+
   useEffect(() => {
     const io = new IntersectionObserver(
       (entries) => {
@@ -47,7 +53,7 @@ export function ScrollEffects() {
       io.disconnect();
       cleanups.forEach((fn) => fn());
     };
-  }, []);
+  }, [pathname]);
 
   return null;
 }
