@@ -5,8 +5,9 @@ import { useI18n } from "@/lib/i18n-context";
 
 const PILLARS = [1, 2, 3] as const;
 
-export function Pillars() {
+export function Pillars({ headingLevel = "h2" }: { headingLevel?: "h1" | "h2" } = {}) {
   const { t } = useI18n();
+  const Heading = headingLevel;
   return (
     <section className="pillars-sec pad">
       <div className="wrap">
@@ -21,7 +22,7 @@ export function Pillars() {
           </div>
           <div className="pillars-copy reveal">
             <span className="eyebrow">{t("pillars.eyebrow")}</span>
-            <h2 className="sec-title" dangerouslySetInnerHTML={{ __html: t("pillars.h2") }} />
+            <Heading className="sec-title" dangerouslySetInnerHTML={{ __html: t("pillars.h2") }} />
             <p>{t("pillars.p")}</p>
             <div className="pillar-row stagger">
               {PILLARS.map((n) => (

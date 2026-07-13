@@ -192,11 +192,39 @@ same PT URL):
   content/title/hreflang (the parts that actually matter most for ranking)
   are already correct server-side. Low priority to fix, but real.
 
-**Not done yet — the rest of Phase 2 and all of Phase 3:** dedicated
-service/about/contact pages as real routes (currently still anchor sections
-within `/` and `/es`, not separately indexable — this was the other half of
-the original Phase 2 plan and didn't happen in this pass), blog/insights
-content, city/region pages, case studies.
+**Incident: the `NEXT_PUBLIC_SITE_URL` fallback leaked into production.**
+An external SEO audit (2026-07) found every SEO surface on conceptualcity.pt
+— canonical, hreflang, `og:url`, `sitemap.xml`, `robots.txt`'s `Sitemap:`
+line, JSON-LD — pointing at `conceptual-city.vercel.app`, an old deployment
+that had since been deleted (404). Root cause: the Vercel project attached to
+conceptualcity.pt never had `NEXT_PUBLIC_SITE_URL` set, so `lib/site-config.ts`
+silently used its fallback for what turned out to be weeks. Fixed by setting
+the env var (`https://www.conceptualcity.pt` — confirmed via redirect chain
+that `www` is the canonical form, apex 308s to it), and hardened so this
+can't silently recur: `NEXT_PUBLIC_SITE_URL` is now documented in
+`.env.example` (previously only mentioned in this README), and
+`lib/site-config.ts` `console.warn`s on every production build
+(`NODE_ENV === "production"`) when the var is missing, loud enough to show
+up in Vercel's build logs. **If you ever see that warning in a deploy log,
+stop and fix the Vercel project's env vars before anything else** — it means
+the site is about to publish the wrong canonical domain again.
+
+**Phase 2 (continued) — dedicated indexable pages, done:** service/about/
+contact/projects pages as real per-language routes (`/quem-somos`,
+`/servicos` + 4 sub-pages, `/projetos`, `/contacto`, and their `/es/...`
+Spanish-slugged equivalents — not the sister site's mistake of Spanish slugs
+under a `/pt/` path). Each reuses the existing section components
+(`About`, `Pillars`, `Services`, `Trades`, `Projects`, `Contact`) inside its
+own `I18nProvider fixedLang="..."`, same pattern as `app/page.tsx`/
+`app/es/page.tsx`. The 4 individual service sub-pages have their own
+expanded, non-duplicate copy (not just the homepage card's one-liner) so
+they don't read as thin content. Homepage nav stays anchor-based (good
+conversion UX); footer links and service-card CTAs now point at the real
+pages instead of anchors, so Google has internal links to find them, not
+just the sitemap.
+
+**Not done yet — Phase 3:** blog/insights content, city/region pages, case
+studies (still blocked on real client names/permission).
 
 ## Known pending items (don't forget these)
 

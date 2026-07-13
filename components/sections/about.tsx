@@ -4,15 +4,16 @@ import Image from "next/image";
 import { Clock, MapPin, Users } from "lucide-react";
 import { useI18n } from "@/lib/i18n-context";
 
-export function About() {
+export function About({ headingLevel = "h2" }: { headingLevel?: "h1" | "h2" } = {}) {
   const { t } = useI18n();
+  const Heading = headingLevel;
   return (
     <section className="pad" id="about">
       <div className="wrap">
         <div className="about-head">
           <span className="eyebrow">{t("about.eyebrow")}</span>
         </div>
-        <h2
+        <Heading
           className="about-headline reveal"
           dangerouslySetInnerHTML={{ __html: t("about.headline") }}
         />

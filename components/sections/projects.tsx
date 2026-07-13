@@ -3,14 +3,15 @@
 import Image from "next/image";
 import { useI18n } from "@/lib/i18n-context";
 
-export function Projects() {
+export function Projects({ headingLevel = "h2" }: { headingLevel?: "h1" | "h2" } = {}) {
   const { t } = useI18n();
+  const Heading = headingLevel;
   return (
     <section className="projects pad" id="projects">
       <div className="wrap">
         <div className="sec-head center reveal">
           <span className="eyebrow">{t("projects.eyebrow")}</span>
-          <h2 className="sec-title" dangerouslySetInnerHTML={{ __html: t("projects.h2") }} />
+          <Heading className="sec-title" dangerouslySetInnerHTML={{ __html: t("projects.h2") }} />
           <p>{t("projects.p")}</p>
         </div>
         <div className="proj-showcase stagger">

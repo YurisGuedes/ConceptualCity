@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { useI18n } from "@/lib/i18n-context";
+import { SERVICE_HREFS } from "@/lib/service-pages";
 
 const SERVICES = [
   { num: "01", img: "servico-01-maodeobra.jpg", alt: "Grua e edifício em construção", h3: "svc1.h3", p: "svc1.p" },
@@ -11,18 +12,20 @@ const SERVICES = [
   { num: "04", img: "servico-04-auxiliares.jpg", alt: "Obra urbana com bomba de betão", h3: "svc4.h3", p: "svc4.p" },
 ] as const;
 
-export function Services() {
-  const { t } = useI18n();
+export function Services({ headingLevel = "h2" }: { headingLevel?: "h1" | "h2" } = {}) {
+  const { t, lang } = useI18n();
+  const Heading = headingLevel;
+  const hrefs = SERVICE_HREFS[lang];
   return (
     <section className="services pad" id="services">
       <div className="wrap">
         <div className="sec-head center reveal">
           <span className="eyebrow">{t("services.eyebrow")}</span>
-          <h2 className="sec-title" dangerouslySetInnerHTML={{ __html: t("services.h2") }} />
+          <Heading className="sec-title" dangerouslySetInnerHTML={{ __html: t("services.h2") }} />
           <p>{t("services.p")}</p>
         </div>
         <div className="svc-grid stagger">
-          {SERVICES.map((s) => (
+          {SERVICES.map((s, i) => (
             <article className="svc tilt" key={s.num}>
               <div className="svc-media">
                 <span className="svc-num">{s.num}</span>
@@ -31,7 +34,7 @@ export function Services() {
               <div className="svc-body">
                 <h3>{t(s.h3)}</h3>
                 <p>{t(s.p)}</p>
-                <a href="#contact" className="svc-link">
+                <a href={hrefs[i]} className="svc-link">
                   {t("action.request")} <ArrowRight />
                 </a>
               </div>

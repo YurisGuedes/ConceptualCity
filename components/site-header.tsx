@@ -21,6 +21,14 @@ export function SiteHeader() {
     document.body.classList.toggle("menu-open", open);
   }, [open]);
 
+  // Anchors only exist on the homepage sections — from a dedicated subpage
+  // (e.g. /quem-somos) a bare "#services" href would be a dead link (no such
+  // id on that page), so every anchor is prefixed with the current
+  // language's full homepage path, even on the homepage itself: a same-path
+  // "/#services" link still just smooth-scrolls with no reload, same as a
+  // bare "#services" would, so there's no downside to always being explicit.
+  const homePrefix = lang === "es" ? "/es" : "/";
+
   const links: { href: string; key: string }[] = [
     { href: "#top", key: "nav.home" },
     { href: "#about", key: "nav.about" },
@@ -32,12 +40,12 @@ export function SiteHeader() {
   return (
     <header id="header" className={scrolled ? "scrolled" : undefined}>
       <div className="wrap nav">
-        <a href="#top" className="logo">
+        <a href={`${homePrefix}#top`} className="logo">
           <Image src="/img/logo-conceptualcity.png" alt="Conceptual City" width={489} height={200} preload />
         </a>
         <nav className={`menu${open ? " open" : ""}`} id="menu">
           {links.map((l) => (
-            <a key={l.key} href={l.href} onClick={() => setOpen(false)}>
+            <a key={l.key} href={`${homePrefix}${l.href}`} onClick={() => setOpen(false)}>
               {t(l.key)}
             </a>
           ))}
@@ -55,7 +63,7 @@ export function SiteHeader() {
               </button>
             ))}
           </div>
-          <a href="#contact" className="nav-cta">
+          <a href={`${homePrefix}#contact`} className="nav-cta">
             {t("nav.cta")}
           </a>
           <button

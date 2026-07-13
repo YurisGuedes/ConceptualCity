@@ -4,10 +4,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { useI18n } from "@/lib/i18n-context";
 import { contactData } from "@/lib/contact-data";
+import { PAGE_HREFS, SERVICE_HREFS } from "@/lib/service-pages";
 
 export function SiteFooter() {
   const { t, lang } = useI18n();
   const info = contactData[lang];
+  const svcHrefs = SERVICE_HREFS[lang];
   return (
     <footer>
       <div className="wrap">
@@ -19,17 +21,17 @@ export function SiteFooter() {
           <div className="foot-cols">
             <div className="fcol">
               <h4>{t("services.eyebrow")}</h4>
-              <a href="#services">{t("svc1.h3")}</a>
-              <a href="#services">{t("svc2.h3")}</a>
-              <a href="#services">{t("svc3.h3")}</a>
-              <a href="#services">{t("svc4.h3")}</a>
+              <Link href={svcHrefs[0]}>{t("svc1.h3")}</Link>
+              <Link href={svcHrefs[1]}>{t("svc2.h3")}</Link>
+              <Link href={svcHrefs[2]}>{t("svc3.h3")}</Link>
+              <Link href={svcHrefs[3]}>{t("svc4.h3")}</Link>
             </div>
             <div className="fcol">
               <h4>{t("footer.company")}</h4>
-              <a href="#about">{t("nav.about")}</a>
-              <a href="#trades">{t("footer.perfis")}</a>
-              <a href="#projects">{t("nav.projects")}</a>
-              <a href="#contact">{t("nav.contact")}</a>
+              <Link href={PAGE_HREFS.quemSomos[lang]}>{t("nav.about")}</Link>
+              <Link href={PAGE_HREFS.trades[lang]}>{t("footer.perfis")}</Link>
+              <Link href={PAGE_HREFS.projetos[lang]}>{t("nav.projects")}</Link>
+              <Link href={PAGE_HREFS.contacto[lang]}>{t("nav.contact")}</Link>
             </div>
             <div className="fcol">
               <h4>{t("nav.contact")}</h4>

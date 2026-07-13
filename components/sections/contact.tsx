@@ -4,16 +4,17 @@ import { Mail, MapPin, Phone } from "lucide-react";
 import { useI18n } from "@/lib/i18n-context";
 import { contactData } from "@/lib/contact-data";
 
-export function Contact() {
+export function Contact({ headingLevel = "h2" }: { headingLevel?: "h1" | "h2" } = {}) {
   const { t, lang } = useI18n();
   const info = contactData[lang];
+  const Heading = headingLevel;
   return (
     <section className="pad" id="contact">
       <div className="wrap">
         <div className="contact-grid">
           <div className="contact-copy reveal">
             <span className="eyebrow">{t("contact.eyebrow")}</span>
-            <h2 className="sec-title" dangerouslySetInnerHTML={{ __html: t("contact.h2") }} />
+            <Heading className="sec-title" dangerouslySetInnerHTML={{ __html: t("contact.h2") }} />
             <p>{t("contact.p")}</p>
             <div className="contact-list">
               <a href={info.phoneHref} className="crow">
