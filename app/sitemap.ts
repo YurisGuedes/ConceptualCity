@@ -12,6 +12,7 @@ const bilingualPages: Array<[pt: string, es: string, priority: number]> = [
   ["/servicos/servicos-auxiliares", "/es/servicios/servicios-auxiliares-construccion", 0.7],
   ["/projetos", "/es/proyectos", 0.8],
   ["/contacto", "/es/contacto", 0.8],
+  ["/trabalhe-connosco", "/es/trabaja-con-nosotros", 0.6],
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

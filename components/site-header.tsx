@@ -2,8 +2,10 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { useI18n } from "@/lib/i18n-context";
 import type { Lang } from "@/lib/translations";
+import { PAGE_HREFS } from "@/lib/service-pages";
 
 export function SiteHeader() {
   const { lang, setLang, t } = useI18n();
@@ -49,6 +51,9 @@ export function SiteHeader() {
               {t(l.key)}
             </a>
           ))}
+          <Link href={PAGE_HREFS.trabalheConnosco[lang]} onClick={() => setOpen(false)}>
+            {t("nav.careers")}
+          </Link>
         </nav>
         <div className="nav-right">
           <div className="lang">

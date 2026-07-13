@@ -20,6 +20,8 @@ export async function POST(request: Request) {
   const name = form.get("name")?.toString().trim();
   const email = form.get("email")?.toString().trim();
   const phone = form.get("phone")?.toString().trim();
+  const trade = form.get("trade")?.toString().trim();
+  const city = form.get("city")?.toString().trim();
   const message = form.get("message")?.toString().trim();
   const cv = form.get("cv");
   const hasCv = cv instanceof File && cv.size > 0;
@@ -41,6 +43,8 @@ export async function POST(request: Request) {
       name,
       email,
       phone,
+      trade,
+      city,
       message,
       cv: hasCv ? { name: cv.name, size: cv.size, type: cv.type } : null,
     });
@@ -60,6 +64,8 @@ export async function POST(request: Request) {
       `Nome: ${name}`,
       `Email: ${email}`,
       phone ? `Telefone: ${phone}` : null,
+      trade ? `Área de atuação: ${trade}` : null,
+      city ? `Cidade / Região: ${city}` : null,
       "",
       message || "(sem mensagem)",
     ]

@@ -27,4 +27,5 @@ export const PAGE_HREFS = {
   trades: { pt: "/servicos#trades", es: "/es/servicios#trades" },
   projetos: { pt: "/projetos", es: "/es/proyectos" },
   contacto: { pt: "/contacto", es: "/es/contacto" },
+  trabalheConnosco: { pt: "/trabalhe-connosco", es: "/es/trabaja-con-nosotros" },
 } satisfies Record<string, Record<Lang, string>>;

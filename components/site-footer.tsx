@@ -32,6 +32,7 @@ export function SiteFooter() {
               <Link href={PAGE_HREFS.trades[lang]}>{t("footer.perfis")}</Link>
               <Link href={PAGE_HREFS.projetos[lang]}>{t("nav.projects")}</Link>
               <Link href={PAGE_HREFS.contacto[lang]}>{t("nav.contact")}</Link>
+              <Link href={PAGE_HREFS.trabalheConnosco[lang]}>{t("nav.careers")}</Link>
             </div>
             <div className="fcol">
               <h4>{t("nav.contact")}</h4>

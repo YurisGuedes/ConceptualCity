@@ -13,7 +13,7 @@ import { Projects } from "@/components/sections/projects";
 import { Process } from "@/components/sections/process";
 import { CtaBand } from "@/components/sections/cta-band";
 import { Contact } from "@/components/sections/contact";
-import { CareersForm } from "@/components/sections/careers-form";
+import { CareersBanner } from "@/components/sections/careers-banner";
 import { I18nProvider } from "@/lib/i18n-context";
 
 export const metadata: Metadata = {
@@ -39,7 +39,7 @@ export default function Home() {
         <Process />
         <CtaBand />
         <Contact />
-        <CareersForm />
+        <CareersBanner />
       </main>
       <SiteFooter />
       <WhatsappFab />
