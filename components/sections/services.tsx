@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { useI18n } from "@/lib/i18n-context";
 
@@ -25,7 +26,7 @@ export function Services() {
             <article className="svc tilt" key={s.num}>
               <div className="svc-media">
                 <span className="svc-num">{s.num}</span>
-                <img loading="lazy" src={`/img/${s.img}`} alt={s.alt} />
+                <Image src={`/img/${s.img}`} alt={s.alt} fill sizes="(max-width: 980px) 100vw, 50vw" />
               </div>
               <div className="svc-body">
                 <h3>{t(s.h3)}</h3>

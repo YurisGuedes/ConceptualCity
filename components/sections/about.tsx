@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Clock, MapPin, Users } from "lucide-react";
 import { useI18n } from "@/lib/i18n-context";
 
@@ -24,7 +25,12 @@ export function About() {
               <span className="card-kicker">{t("about.card1.kicker")}</span>
             </div>
             <div className="media">
-              <img src="/img/about-equipa.jpg" alt="Equipa de trabalhadores em obra, vista de cima" />
+              <Image
+                src="/img/about-equipa.jpg"
+                alt="Equipa de trabalhadores em obra, vista de cima"
+                fill
+                sizes="(max-width: 980px) 100vw, 33vw"
+              />
             </div>
             <h3>{t("about.card1.h3")}</h3>
             <p dangerouslySetInnerHTML={{ __html: t("about.card1.p") }} />
@@ -57,7 +63,12 @@ export function About() {
               <span className="card-kicker">{t("about.card3.kicker")}</span>
             </div>
             <div className="media">
-              <img src="/img/about-gruas.jpg" alt="Gruas em obra ao pôr do sol" />
+              <Image
+                src="/img/about-gruas.jpg"
+                alt="Gruas em obra ao pôr do sol"
+                fill
+                sizes="(max-width: 980px) 100vw, 33vw"
+              />
             </div>
             <h3>{t("about.card3.h3")}</h3>
             <p dangerouslySetInnerHTML={{ __html: t("about.card3.p") }} />

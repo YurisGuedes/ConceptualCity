@@ -5,7 +5,7 @@ import { ScrollEffects } from "@/components/scroll-effects";
 import { StructuredData } from "@/components/structured-data";
 import { SITE_NAME, SITE_URL } from "@/lib/site-config";
 
-const TITLE = "Conceptual City — Mão de obra qualificada para construção | Portugal e Espanha";
+const TITLE = "Conceptual City: Mão de obra qualificada, Portugal e Espanha";
 const DESCRIPTION =
   "Equipas profissionais especializadas para construção, obra civil e infraestrutura em Portugal e Espanha. Integração rápida, mobilidade e organização.";
 

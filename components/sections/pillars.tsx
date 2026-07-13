@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useI18n } from "@/lib/i18n-context";
 
 const PILLARS = [1, 2, 3] as const;
@@ -11,7 +12,12 @@ export function Pillars() {
       <div className="wrap">
         <div className="pillars-grid">
           <div className="pillars-media reveal">
-            <img loading="lazy" src="/img/about-equipa.jpg" alt="Equipa em obra vista de cima" />
+            <Image
+              src="/img/about-equipa.jpg"
+              alt="Equipa em obra vista de cima"
+              fill
+              sizes="(max-width: 980px) 100vw, 50vw"
+            />
           </div>
           <div className="pillars-copy reveal">
             <span className="eyebrow">{t("pillars.eyebrow")}</span>

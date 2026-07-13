@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useI18n } from "@/lib/i18n-context";
 import { contactData } from "@/lib/contact-data";
 
@@ -12,7 +13,7 @@ export function SiteFooter() {
       <div className="wrap">
         <div className="foot-top">
           <div className="foot-brand">
-            <img src="/img/logo-conceptualcity.png" alt="Conceptual City" />
+            <Image src="/img/logo-conceptualcity.png" alt="Conceptual City" width={489} height={200} />
             <p>{t("footer.brand.p")}</p>
           </div>
           <div className="foot-cols">

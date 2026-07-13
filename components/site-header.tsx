@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { useI18n } from "@/lib/i18n-context";
 import type { Lang } from "@/lib/translations";
 
@@ -32,7 +33,7 @@ export function SiteHeader() {
     <header id="header" className={scrolled ? "scrolled" : undefined}>
       <div className="wrap nav">
         <a href="#top" className="logo">
-          <img src="/img/logo-conceptualcity.png" alt="Conceptual City" />
+          <Image src="/img/logo-conceptualcity.png" alt="Conceptual City" width={489} height={200} preload />
         </a>
         <nav className={`menu${open ? " open" : ""}`} id="menu">
           {links.map((l) => (
