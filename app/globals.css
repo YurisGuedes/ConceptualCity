@@ -446,7 +446,7 @@ section{position:relative}
 footer{border-top:1px solid var(--line);padding:60px 0 36px}
 .foot-top{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;padding-bottom:44px;border-bottom:1px solid var(--line)}
 .foot-brand{max-width:320px}
-.foot-brand img{height:40px;filter:brightness(0) invert(1);margin-bottom:16px}
+.foot-brand img{height:40px;width:auto;filter:brightness(0) invert(1);margin-bottom:16px}
 .foot-brand p{color:var(--tx-dim2);font-size:14px;line-height:1.6}
 .foot-cols{display:flex;gap:60px;flex-wrap:wrap}
 .fcol h4{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--tx-dim2);margin-bottom:16px;font-weight:600}
