@@ -12,8 +12,13 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "invalid_body" }, { status: 400 });
   }
 
-  // Honeypot: bots fill every field, including this hidden one. Pretend success.
-  if (form.get("website")) {
+  // Honeypot: bots (and occasionally overzealous browser autofill) fill
+  // every field, including this hidden one. Pretend success either way so
+  // bots can't tell they were caught — but log it, since a silently
+  // swallowed real submission is otherwise indistinguishable from a bot one.
+  const hpToken = form.get("hp_token");
+  if (hpToken) {
+    console.warn("[careers] honeypot triggered, submission ignored", { hpToken: hpToken.toString() });
     return NextResponse.json({ ok: true });
   }
 
@@ -55,7 +60,7 @@ export async function POST(request: Request) {
     ? [{ filename: cv.name, content: Buffer.from(await cv.arrayBuffer()) }]
     : undefined;
 
-  const { error } = await resend.emails.send({
+  const { data, error } = await resend.emails.send({
     from: CAREERS_FROM,
     to: CAREERS_TO,
     replyTo: email,
@@ -79,5 +84,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "send_failed" }, { status: 502 });
   }
 
+  console.log("[careers] sent", { id: data?.id, name, email });
   return NextResponse.json({ ok: true });
 }

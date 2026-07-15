@@ -17,7 +17,11 @@ export function CareersFormCard() {
   const [trade, setTrade] = useState("");
   const [city, setCity] = useState("");
   const [message, setMessage] = useState("");
-  const [website, setWebsite] = useState(""); // honeypot
+  // Honeypot: bots (and unfortunately some browser autofill/password-manager
+  // heuristics) tend to target fields named after a recognizable category
+  // like "website", "url", or "company" — this name is deliberately
+  // meaningless to autofill so real users' browsers leave it alone.
+  const [hpToken, setHpToken] = useState("");
   const [consent, setConsent] = useState(false);
   const [cv, setCv] = useState<File | null>(null);
   const [status, setStatus] = useState<Status>("idle");
@@ -30,7 +34,7 @@ export function CareersFormCard() {
     setTrade("");
     setCity("");
     setMessage("");
-    setWebsite("");
+    setHpToken("");
     setConsent(false);
     setCv(null);
     if (fileInputRef.current) fileInputRef.current.value = "";
@@ -52,7 +56,7 @@ export function CareersFormCard() {
       body.set("trade", trade);
       body.set("city", city);
       body.set("message", message);
-      body.set("website", website);
+      body.set("hp_token", hpToken);
       if (cv) body.set("cv", cv);
 
       const res = await fetch("/api/careers", { method: "POST", body });
@@ -78,9 +82,9 @@ export function CareersFormCard() {
         <form onSubmit={handleSubmit} noValidate>
           <input
             type="text"
-            name="website"
-            value={website}
-            onChange={(e) => setWebsite(e.target.value)}
+            name="hp_token"
+            value={hpToken}
+            onChange={(e) => setHpToken(e.target.value)}
             className="qf-hp"
             tabIndex={-1}
             autoComplete="off"
