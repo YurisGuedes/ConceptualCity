@@ -1,29 +1,17 @@
-"use client";
+import type { Metadata } from "next";
+import { LegalNoticeContent } from "@/components/legal/legal-notice-content";
+import { translations } from "@/lib/translations";
 
-import { useI18n } from "@/lib/i18n-context";
-import { LegalPageLayout } from "@/components/legal-page-layout";
+const TITLE = translations.pt["page.avisolegal.title"];
+const DESCRIPTION = translations.pt["page.avisolegal.description"];
+const PATH = "/aviso-legal";
+
+export const metadata: Metadata = {
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+};
 
 export default function LegalNoticePage() {
-  const { t } = useI18n();
-  return (
-    <LegalPageLayout titleKey="legal.title" updatedKey="legal.updated">
-      <h2>{t("legal.id.h3")}</h2>
-      <p dangerouslySetInnerHTML={{ __html: t("legal.id.p") }} />
-
-      <h2>{t("legal.object.h3")}</h2>
-      <p>{t("legal.object.p")}</p>
-
-      <h2>{t("legal.ip.h3")}</h2>
-      <p>{t("legal.ip.p")}</p>
-
-      <h2>{t("legal.use.h3")}</h2>
-      <p>{t("legal.use.p")}</p>
-
-      <h2>{t("legal.liability.h3")}</h2>
-      <p>{t("legal.liability.p")}</p>
-
-      <h2>{t("legal.law.h3")}</h2>
-      <p>{t("legal.law.p")}</p>
-    </LegalPageLayout>
-  );
+  return <LegalNoticeContent />;
 }

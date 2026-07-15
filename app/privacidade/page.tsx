@@ -1,26 +1,22 @@
-"use client";
+import type { Metadata } from "next";
+import { PrivacyContent } from "@/components/legal/privacy-content";
+import { translations } from "@/lib/translations";
 
-import { useI18n } from "@/lib/i18n-context";
-import { LegalPageLayout } from "@/components/legal-page-layout";
+const TITLE = translations.pt["page.privacidade.title"];
+const DESCRIPTION = translations.pt["page.privacidade.description"];
+const PATH = "/privacidade";
+
+// Single URL shared by both languages (toggled client-side, see
+// lib/i18n-context.tsx's non-fixedLang behavior) — no /es route to pair
+// with, so no hreflang alternates here, just a self-referencing canonical
+// (this previously inherited the homepage's canonical, which kept this page
+// out of Google's index as a distinct result).
+export const metadata: Metadata = {
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+};
 
 export default function PrivacyPage() {
-  const { t } = useI18n();
-  return (
-    <LegalPageLayout titleKey="privacy.title" updatedKey="privacy.updated" introKey="privacy.intro">
-      <h2>{t("privacy.controller.h3")}</h2>
-      <p dangerouslySetInnerHTML={{ __html: t("privacy.controller.p") }} />
-
-      <h2>{t("privacy.data.h3")}</h2>
-      <p>{t("privacy.data.p")}</p>
-
-      <h2>{t("privacy.purpose.h3")}</h2>
-      <p>{t("privacy.purpose.p")}</p>
-
-      <h2>{t("privacy.retention.h3")}</h2>
-      <p>{t("privacy.retention.p")}</p>
-
-      <h2>{t("privacy.rights.h3")}</h2>
-      <p>{t("privacy.rights.p")}</p>
-    </LegalPageLayout>
-  );
+  return <PrivacyContent />;
 }

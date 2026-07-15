@@ -171,6 +171,15 @@ same PT URL):
   (including a direct/organic landing, not just a toggle click) so a visitor
   who was just on `/es` and clicks through to `/privacidade` sees it in
   Spanish. Verified with Playwright.
+  Each legal page's actual content still lives in a `"use client"` component
+  (now under `components/legal/*-content.tsx`, one per page) since it needs
+  `useI18n()`; `app/<page>/page.tsx` is a thin Server Component that just
+  renders that client component and exports `metadata` (title/description +
+  a self-referencing `alternates.canonical`) — these pages used to silently
+  inherit the homepage's canonical/title since a client-component page can't
+  export `metadata` itself, which kept them out of Google's index as
+  distinct results. No hreflang here (there's no second-language URL to
+  pair with, unlike `/` and `/es`).
 - `components/locale-redirect.tsx` — rendered only on `/`. First-ever visit,
   no stored preference yet, Spanish browser language → `router.replace`
   to `/es`. Never fires again once a preference is recorded (won't fight a

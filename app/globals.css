@@ -135,6 +135,7 @@
   --quote-img:url('/img/contact-form-bg.jpg');
   --careers-hero-img:url('/img/careers-hero-bg.jpg');
   --process-img:url('/img/process-bg.jpg');
+  --svcfaq-img:url('/img/svcpage-faq-bg.jpg');
   --amber:#F4A72C;
   --amber-h:#ffb840;
   --amber-deep:#c98a12;
@@ -213,7 +214,7 @@ header.scrolled{background:rgba(11,11,14,.85);backdrop-filter:blur(14px);border-
 
 /* ============ HERO ============ */
 .hero{position:relative;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;overflow:hidden;isolation:isolate}
-.hero::before{content:"";position:absolute;inset:0;z-index:-2;background-image:var(--hero-img);background-size:cover;background-position:center right;filter:contrast(1.08) saturate(1.12) brightness(1.03)}
+.hero::before{content:"";position:absolute;inset:0;z-index:-2;background-image:var(--hero-img);background-image:-webkit-image-set(url('/img/hero-sunset.avif') type('image/avif'),url('/img/hero-sunset.webp') type('image/webp'),url('/img/hero-sunset.jpg') type('image/jpeg'));background-image:image-set(url('/img/hero-sunset.avif') type('image/avif'),url('/img/hero-sunset.webp') type('image/webp'),url('/img/hero-sunset.jpg') type('image/jpeg'));background-size:cover;background-position:center right;filter:contrast(1.08) saturate(1.12) brightness(1.03)}
 .hero::after{content:"";position:absolute;inset:0;z-index:-1;background:
   linear-gradient(100deg, rgba(9,9,12,.85) 0%, rgba(9,9,12,.55) 34%, rgba(9,9,12,.22) 62%, rgba(9,9,12,.05) 100%),
   linear-gradient(to bottom, rgba(9,9,12,.5) 0%, rgba(9,9,12,0) 24%, rgba(9,9,12,0) 58%, rgba(9,9,12,.7) 100%)}
@@ -266,7 +267,7 @@ section{position:relative}
 
 /* ============ (3) IMAGE STRIP com diferenciais ============ */
 .strip{position:relative;min-height:420px;display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
-.strip::before{content:"";position:absolute;inset:0;z-index:-2;background-image:var(--scaffold-img);background-size:cover;background-position:center;filter:contrast(1.05) saturate(1.05)}
+.strip::before{content:"";position:absolute;inset:0;z-index:-2;background-image:var(--scaffold-img);background-image:-webkit-image-set(url('/img/strip-andaimes.avif') type('image/avif'),url('/img/strip-andaimes.webp') type('image/webp'),url('/img/strip-andaimes.jpg') type('image/jpeg'));background-image:image-set(url('/img/strip-andaimes.avif') type('image/avif'),url('/img/strip-andaimes.webp') type('image/webp'),url('/img/strip-andaimes.jpg') type('image/jpeg'));background-size:cover;background-position:center;filter:contrast(1.05) saturate(1.05)}
 .strip::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(to top, rgba(9,9,12,.94) 0%, rgba(9,9,12,.55) 45%, rgba(9,9,12,.35) 100%)}
 .strip-inner{width:100%;padding:56px 0}
 .strip-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
@@ -339,7 +340,7 @@ section{position:relative}
 
 /* ============ (8) PROCESS — timeline horizontal, castanho ============ */
 .process{position:relative;overflow:hidden;isolation:isolate}
-.process::before{content:"";position:absolute;inset:0;z-index:-2;background-image:var(--process-img);background-size:cover;background-position:center;filter:contrast(1.05) saturate(1.05)}
+.process::before{content:"";position:absolute;inset:0;z-index:-2;background-image:var(--process-img);background-image:-webkit-image-set(url('/img/process-bg.avif') type('image/avif'),url('/img/process-bg.webp') type('image/webp'),url('/img/process-bg.jpg') type('image/jpeg'));background-image:image-set(url('/img/process-bg.avif') type('image/avif'),url('/img/process-bg.webp') type('image/webp'),url('/img/process-bg.jpg') type('image/jpeg'));background-size:cover;background-position:center;filter:contrast(1.05) saturate(1.05)}
 .process::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg, rgba(18,16,12,.88) 0%, rgba(18,16,12,.8) 40%, rgba(18,16,12,.92) 100%)}
 .timeline{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:20px}
 .timeline::before{content:"";position:absolute;top:26px;left:8%;right:8%;height:2px;background:linear-gradient(90deg,transparent,rgba(244,167,44,.5) 15%,rgba(244,167,44,.5) 85%,transparent)}
@@ -351,7 +352,7 @@ section{position:relative}
 
 /* ============ (9) CTA banner (gruas sunset) ============ */
 .cta-band{position:relative;overflow:hidden;isolation:isolate}
-.cta-band::before{content:"";position:absolute;inset:0;z-index:-2;background-image:var(--cranes-img);background-size:cover;background-position:center;filter:contrast(1.05) saturate(1.1)}
+.cta-band::before{content:"";position:absolute;inset:0;z-index:-2;background-image:var(--cranes-img);background-image:-webkit-image-set(url('/img/cta-aerea.avif') type('image/avif'),url('/img/cta-aerea.webp') type('image/webp'),url('/img/cta-aerea.jpg') type('image/jpeg'));background-image:image-set(url('/img/cta-aerea.avif') type('image/avif'),url('/img/cta-aerea.webp') type('image/webp'),url('/img/cta-aerea.jpg') type('image/jpeg'));background-size:cover;background-position:center;filter:contrast(1.05) saturate(1.1)}
 .cta-band::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg, rgba(11,11,14,.92) 0%, rgba(11,11,14,.7) 42%, rgba(11,11,14,.35) 75%, rgba(11,11,14,.15) 100%)}
 .cta-inner{padding:104px 0;max-width:600px}
 .cta-inner .eyebrow{margin-bottom:22px}
@@ -385,7 +386,7 @@ section{position:relative}
 
 /* ============ (11) CAREERS BANNER (homepage teaser, bg fotografia) ============ */
 .careers-banner{position:relative;overflow:hidden;isolation:isolate}
-.careers-banner::before{content:"";position:absolute;inset:0;z-index:-2;background-image:var(--quote-img);background-size:cover;background-position:center;filter:contrast(1.05) saturate(1.05)}
+.careers-banner::before{content:"";position:absolute;inset:0;z-index:-2;background-image:var(--quote-img);background-image:-webkit-image-set(url('/img/contact-form-bg.avif') type('image/avif'),url('/img/contact-form-bg.webp') type('image/webp'),url('/img/contact-form-bg.jpg') type('image/jpeg'));background-image:image-set(url('/img/contact-form-bg.avif') type('image/avif'),url('/img/contact-form-bg.webp') type('image/webp'),url('/img/contact-form-bg.jpg') type('image/jpeg'));background-size:cover;background-position:center;filter:contrast(1.05) saturate(1.05)}
 .careers-banner::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(100deg, rgba(9,9,12,.92) 0%, rgba(9,9,12,.7) 42%, rgba(9,9,12,.35) 75%, rgba(9,9,12,.15) 100%)}
 .careers-banner-inner{padding:104px 0;max-width:600px}
 .careers-banner-inner .eyebrow{margin-bottom:22px}
@@ -394,7 +395,7 @@ section{position:relative}
 
 /* ============ TRABALHE CONNOSCO (dedicated page, form centered) ============ */
 .careers-page-hero{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:center;overflow:hidden;isolation:isolate}
-.careers-page-hero::before{content:"";position:absolute;inset:0;z-index:-2;background-color:var(--bg);background-image:var(--careers-hero-img);background-size:100% auto;background-position:top center;background-repeat:no-repeat;filter:contrast(1.05) saturate(1.05)}
+.careers-page-hero::before{content:"";position:absolute;inset:0;z-index:-2;background-color:var(--bg);background-image:var(--careers-hero-img);background-image:-webkit-image-set(url('/img/careers-hero-bg.avif') type('image/avif'),url('/img/careers-hero-bg.webp') type('image/webp'),url('/img/careers-hero-bg.jpg') type('image/jpeg'));background-image:image-set(url('/img/careers-hero-bg.avif') type('image/avif'),url('/img/careers-hero-bg.webp') type('image/webp'),url('/img/careers-hero-bg.jpg') type('image/jpeg'));background-size:100% auto;background-position:top center;background-repeat:no-repeat;filter:contrast(1.05) saturate(1.05)}
 .careers-page-hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(to bottom, rgba(9,9,12,.75) 0%, rgba(9,9,12,.55) 30%, rgba(9,9,12,.88) 100%)}
 .careers-page-inner{width:100%;padding:140px 0 80px}
 .careers-page-head{text-align:center;max-width:640px;margin:0 auto 40px}
@@ -412,7 +413,12 @@ section{position:relative}
 .qf-field input:focus,.qf-field textarea:focus,.qf-field select:focus{outline:none;border-color:var(--amber);background:rgba(255,255,255,.09);box-shadow:0 0 0 4px rgba(244,167,44,.16)}
 .qf-field select{appearance:none;-webkit-appearance:none;cursor:pointer;padding-right:40px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9' fill='none'%3E%3Cpath d='M1 1L7 7L13 1' stroke='%23F4A72C' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center}
 .qf-field select option{background:#1a1a1e;color:#fff}
-.qf-hp{position:absolute!important;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none;left:-9999px}
+/* display:none (not the old off-screen/opacity:0 trick) is what actually
+   keeps browser autofill from targeting this field — an element that's
+   merely moved off-screen still has layout and is still "visible" to the
+   browser engine, which is exactly what let Chrome's autofill fill this
+   with the user's own saved email despite opacity:0/position off-screen. */
+.qf-hp{display:none!important}
 .cf-file{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .cf-file-input{position:absolute!important;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none;left:-9999px}
 .cf-file-btn{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:9px;background:rgba(255,255,255,.06);border:1.5px solid var(--line-2);color:#fff;font-size:13.5px;font-weight:600;cursor:pointer;transition:border-color .2s,background .2s}
@@ -445,6 +451,29 @@ section{position:relative}
 .svcpage-body p:first-child{color:var(--tx);font-size:18px;line-height:1.6}
 .svcpage-media{position:relative;aspect-ratio:4/3;border-radius:20px;overflow:hidden;border:1px solid var(--line)}
 .svcpage-media img{object-fit:cover}
+.svc-usecases-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:36px}
+.svc-usecase{padding:24px 26px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(180deg,var(--card),var(--card-2));transition:border-color .3s,transform .3s var(--ease)}
+.svc-usecase:hover{border-color:rgba(244,167,44,.35);transform:translateY(-3px)}
+.svc-usecase h3{font-size:17px;font-weight:700;margin-bottom:8px}
+.svc-usecase p{font-size:14.5px;color:var(--tx-dim);line-height:1.6}
+.svc-faq{position:relative;overflow:hidden;isolation:isolate}
+.svc-faq::before{content:"";position:absolute;inset:0;z-index:-2;background-image:var(--svcfaq-img);background-image:-webkit-image-set(url('/img/svcpage-faq-bg.avif') type('image/avif'),url('/img/svcpage-faq-bg.webp') type('image/webp'),url('/img/svcpage-faq-bg.jpg') type('image/jpeg'));background-image:image-set(url('/img/svcpage-faq-bg.avif') type('image/avif'),url('/img/svcpage-faq-bg.webp') type('image/webp'),url('/img/svcpage-faq-bg.jpg') type('image/jpeg'));background-size:cover;background-position:center;filter:contrast(1.05) saturate(1.05)}
+.svc-faq::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg, rgba(11,11,14,.9) 0%, rgba(11,11,14,.82) 45%, rgba(11,11,14,.94) 100%)}
+.svc-faq-list{max-width:760px;margin:36px auto 0}
+/* Scopes shadcn/Base UI's theme tokens (normally the light-mode oklch
+   values, since this project never toggles the .dark class) to this dark
+   photo section, so the accordion reads like the rest of the site instead
+   of shadcn's default neutral-gray styling. */
+.svc-faq-accordion{
+  --foreground:var(--tx);
+  --muted-foreground:rgba(255,255,255,.7);
+  --border:var(--line-2);
+  --ring:var(--amber);
+  --accent:rgba(255,255,255,.06);
+  --accent-foreground:var(--tx);
+}
+.svc-faq-trigger{font-size:18px;font-weight:700;color:var(--tx)}
+.svc-faq-answer p{font-size:15px;color:rgba(255,255,255,.78);line-height:1.7}
 
 /* ============ LEGAL PAGES ============ */
 .legal-page{padding:70px 0 120px;max-width:none}
@@ -499,6 +528,7 @@ footer{border-top:1px solid var(--line);padding:60px 0 36px}
   .quote-grid{grid-template-columns:1fr;gap:40px}
   .quote-copy>p{max-width:none}
   .svcpage-split{grid-template-columns:1fr;gap:32px}
+  .svc-usecases-grid{grid-template-columns:1fr}
 }
 @media(max-width:820px){
   .wrap{padding:0 24px}
