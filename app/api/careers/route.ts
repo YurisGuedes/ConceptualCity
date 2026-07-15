@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { resend, CAREERS_FROM, CAREERS_TO } from "@/lib/resend";
+import { buildCareersEmailHtml } from "@/lib/careers-email-template";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MAX_CV_BYTES = 5 * 1024 * 1024; // 5MB
@@ -65,6 +66,7 @@ export async function POST(request: Request) {
     to: CAREERS_TO,
     replyTo: email,
     subject: `Nova candidatura — ${name}`,
+    html: buildCareersEmailHtml({ name, email, phone, trade, city, message, hasCv }),
     text: [
       `Nome: ${name}`,
       `Email: ${email}`,
