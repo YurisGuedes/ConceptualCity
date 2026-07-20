@@ -14,7 +14,7 @@ const listings = [
     url: SITE_URL,
     logo: `${SITE_URL}/img/logo-conceptualcity.png`,
     image: `${SITE_URL}/img/hero-sunset.jpg`,
-    telephone: "+351933659117",
+    telephone: "+351932176872",
     email: "portugal@conceptualcity.com",
     address: {
       "@type": "PostalAddress",

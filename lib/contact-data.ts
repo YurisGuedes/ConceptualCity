@@ -12,10 +12,10 @@ export interface ContactInfo {
 
 export const contactData: Record<Lang, ContactInfo> = {
   pt: {
-    phone: "+351 933 659 117",
-    phoneHref: "tel:+351933659117",
-    whatsapp: "+351 933 659 117",
-    whatsappHref: "https://wa.me/351933659117",
+    phone: "+351 932 176 872",
+    phoneHref: "tel:+351932176872",
+    whatsapp: "+351 932 176 872",
+    whatsappHref: "https://wa.me/351932176872",
     email: "portugal@conceptualcity.com",
     address: "Av. da Liberdade 706 1º Esq, 4710-249 Braga",
     // Pinned by coordinates (not the text address) so the embed drops a single
