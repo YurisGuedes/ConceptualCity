@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { sendGTMEvent } from "@next/third-parties/google";
 import { useI18n } from "@/lib/i18n-context";
 import { contactData } from "@/lib/contact-data";
-import { PAGE_HREFS, SERVICE_HREFS } from "@/lib/service-pages";
+import { PAGE_HREFS, SERVICE_HREFS, ROUTES } from "@/lib/routes";
 
 export function SiteFooter() {
   const { t, lang } = useI18n();
@@ -36,9 +37,18 @@ export function SiteFooter() {
             </div>
             <div className="fcol">
               <h4>{t("nav.contact")}</h4>
-              <a href={info.phoneHref}>{info.phone}</a>
-              <a href={`mailto:${info.email}`}>{info.email}</a>
-              <a href={info.whatsappHref} target="_blank" rel="noopener">
+              <a href={info.phoneHref} onClick={() => sendGTMEvent({ event: "phone_click" })}>
+                {info.phone}
+              </a>
+              <a href={`mailto:${info.email}`} onClick={() => sendGTMEvent({ event: "email_click" })}>
+                {info.email}
+              </a>
+              <a
+                href={info.whatsappHref}
+                target="_blank"
+                rel="noopener"
+                onClick={() => sendGTMEvent({ event: "whatsapp_click" })}
+              >
                 WhatsApp
               </a>
             </div>
@@ -47,10 +57,10 @@ export function SiteFooter() {
         <div className="foot-bottom">
           <span>{t("footer.rights")}</span>
           <div className="foot-legal">
-            <Link href="/aviso-legal">{t("legal.title")}</Link>
-            <Link href="/privacidade">{t("privacy.title")}</Link>
-            <Link href="/politica-de-cookies">{t("cookies.title")}</Link>
-            <Link href="/declaracao-de-acessibilidade">{t("accessibility.title")}</Link>
+            <Link href={ROUTES.avisoLegal[lang]}>{t("legal.title")}</Link>
+            <Link href={ROUTES.privacidade[lang]}>{t("privacy.title")}</Link>
+            <Link href={ROUTES.politicaCookies[lang]}>{t("cookies.title")}</Link>
+            <Link href={ROUTES.acessibilidade[lang]}>{t("accessibility.title")}</Link>
           </div>
           <span>Portugal · España</span>
         </div>

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { WhatsappFab } from "@/components/whatsapp-fab";
-import { LocaleRedirect } from "@/components/locale-redirect";
 import { Hero } from "@/components/sections/hero";
 import { About } from "@/components/sections/about";
 import { Strip } from "@/components/sections/strip";
@@ -15,19 +14,24 @@ import { CtaBand } from "@/components/sections/cta-band";
 import { Contact } from "@/components/sections/contact";
 import { CareersBanner } from "@/components/sections/careers-banner";
 import { I18nProvider } from "@/lib/i18n-context";
+import { ROUTES } from "@/lib/routes";
+import { DOMAIN_ORIGINS } from "@/lib/site-config";
 
 export const metadata: Metadata = {
   alternates: {
-    canonical: "/",
-    languages: { "pt-PT": "/", "es-ES": "/es", "x-default": "/" },
+    canonical: ROUTES.home.pt,
+    languages: {
+      "pt-PT": `${DOMAIN_ORIGINS.pt}${ROUTES.home.pt}`,
+      "es-ES": `${DOMAIN_ORIGINS.es}${ROUTES.home.es}`,
+      "x-default": `${DOMAIN_ORIGINS.pt}${ROUTES.home.pt}`,
+    },
   },
 };
 
 export default function Home() {
   return (
     <I18nProvider fixedLang="pt">
-      <LocaleRedirect />
-      <SiteHeader />
+      <SiteHeader currentRoute="home" />
       <main id="top">
         <Hero />
         <About />

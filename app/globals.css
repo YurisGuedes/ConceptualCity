@@ -161,7 +161,7 @@
   *{margin:0;padding:0;box-sizing:border-box}
 }
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--tx);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{font-family:var(--font-inter),system-ui,sans-serif;background:var(--bg);color:var(--tx);-webkit-font-smoothing:antialiased;overflow-x:hidden}
 a{text-decoration:none;color:inherit}
 img{display:block;max-width:100%}
 .wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 40px}
@@ -204,9 +204,9 @@ header.scrolled{background:rgba(11,11,14,.85);backdrop-filter:blur(14px);border-
 .menu a:hover{color:#fff}.menu a:hover::after{width:100%}
 .nav-right{display:flex;align-items:center;gap:18px}
 .lang{display:flex;border:1px solid var(--line-2);border-radius:100px;overflow:hidden;font-size:12.5px;font-weight:600}
-.lang button{background:transparent;border:none;color:rgba(255,255,255,.6);padding:7px 13px;cursor:pointer;font-family:inherit;font-weight:600;transition:.2s}
-.lang button.active{background:var(--amber);color:#111}
-.lang button:not(.active):hover{color:#fff}
+.lang a,.lang span{display:inline-block;background:transparent;color:rgba(255,255,255,.6);padding:7px 13px;font-family:inherit;font-weight:600;text-decoration:none;transition:.2s}
+.lang span.active{background:var(--amber);color:#111}
+.lang a:hover{color:#fff}
 .nav-cta{display:inline-flex;align-items:center;gap:8px;background:var(--amber);color:#111;padding:11px 20px;border-radius:8px;font-weight:600;font-size:14px;transition:background .25s,transform .2s}
 .nav-cta:hover{background:var(--amber-h);transform:translateY(-1px)}
 .burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px;z-index:120}
@@ -499,6 +499,19 @@ section{position:relative}
   .wa-fab svg{width:27px;height:27px}
 }
 @media(prefers-reduced-motion:reduce){.wa-fab-ring{animation:none;display:none}}
+
+/* ============ COOKIE CONSENT BANNER ============ */
+.cookie-banner{position:fixed;left:0;right:0;bottom:0;z-index:200;background:var(--card);border-top:1px solid var(--line-2);padding:18px 24px calc(18px + env(safe-area-inset-bottom));display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:14px 28px;box-shadow:0 -8px 28px -10px rgba(0,0,0,.5)}
+.cookie-banner p{margin:0;font-size:13.5px;line-height:1.55;color:var(--tx-dim);max-width:640px;flex:1 1 320px}
+.cookie-banner p a{color:var(--amber);text-decoration:underline}
+.cookie-banner-actions{display:flex;gap:10px;flex-shrink:0}
+.cookie-banner .btn{padding:10px 22px;font-size:13.5px}
+/* Keeps the WhatsApp FAB from sitting under the banner while it's shown. */
+body.cookie-banner-open .wa-fab{bottom:calc(112px + env(safe-area-inset-bottom))}
+@media(max-width:600px){
+  .cookie-banner{padding:16px 16px calc(16px + env(safe-area-inset-bottom));justify-content:flex-start}
+  body.cookie-banner-open .wa-fab{bottom:calc(150px + env(safe-area-inset-bottom))}
+}
 
 /* ============ FOOTER ============ */
 footer{border-top:1px solid var(--line);padding:60px 0 36px}

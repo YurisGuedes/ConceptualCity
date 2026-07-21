@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { useI18n } from "@/lib/i18n-context";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
+import { BreadcrumbJsonLd } from "@/components/breadcrumb-jsonld";
+import { ROUTES, type RouteKey } from "@/lib/routes";
 
 // Hero background only — decorative/atmospheric, sits behind the headline
 // with a dark gradient over it. AI-generated (confirmed with the user
@@ -27,8 +29,16 @@ const REAL_IMAGES: Record<1 | 2 | 3 | 4, { src: string; alt: string }> = {
 const USE_CASES = [1, 2, 3, 4] as const;
 const FAQS = [1, 2, 3] as const;
 
+// Order matches SERVICES in components/sections/services.tsx (svc1..svc4).
+const SERVICE_ROUTE_KEYS: Record<1 | 2 | 3 | 4, RouteKey> = {
+  1: "maoDeObra",
+  2: "edificacao",
+  3: "obraCivil",
+  4: "servicosAuxiliares",
+};
+
 export function ServiceDetail({ index }: { index: 1 | 2 | 3 | 4 }) {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const real = REAL_IMAGES[index];
   const faqJsonLd = {
     "@context": "https://schema.org",
@@ -39,9 +49,18 @@ export function ServiceDetail({ index }: { index: 1 | 2 | 3 | 4 }) {
       acceptedAnswer: { "@type": "Answer", text: t(`svcpage${index}.faq${n}.a`) },
     })),
   };
+  const routeKey = SERVICE_ROUTE_KEYS[index];
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+      <BreadcrumbJsonLd
+        lang={lang}
+        items={[
+          { name: t("nav.home"), path: ROUTES.home[lang] },
+          { name: t("nav.services"), path: ROUTES.servicos[lang] },
+          { name: t(`svc${index}.h3`), path: ROUTES[routeKey][lang] },
+        ]}
+      />
       <section className="svc-hero">
         <Image src={HERO_IMAGES[index]} alt="" fill sizes="100vw" preload />
         <div className="svc-hero-content">

@@ -1,5 +1,6 @@
 "use client";
 
+import { sendGTMEvent } from "@next/third-parties/google";
 import { useI18n } from "@/lib/i18n-context";
 import { contactData } from "@/lib/contact-data";
 
@@ -13,6 +14,7 @@ export function WhatsappFab() {
       rel="noopener"
       className="wa-fab"
       aria-label="WhatsApp"
+      onClick={() => sendGTMEvent({ event: "whatsapp_click" })}
     >
       <span className="wa-fab-ring" aria-hidden="true" />
       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">

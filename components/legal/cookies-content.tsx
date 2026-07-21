@@ -16,6 +16,9 @@ export function CookiesContent() {
       <h2>{t("cookies.manage.h3")}</h2>
       <p>{t("cookies.manage.p")}</p>
 
+      <h2>{t("cookies.consent.h3")}</h2>
+      <p>{t("cookies.consent.p")}</p>
+
       <h2>{t("cookies.changes.h3")}</h2>
       <p>{t("cookies.changes.p")}</p>
     </LegalPageLayout>

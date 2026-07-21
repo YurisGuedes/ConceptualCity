@@ -1,48 +1,49 @@
 import type { MetadataRoute } from "next";
-import { SITE_URL } from "@/lib/site-config";
+import { getRequestContext } from "@/lib/request-context";
+import { DOMAIN_ORIGINS } from "@/lib/site-config";
+import { ROUTES, ALL_ROUTE_KEYS, LEGAL_ROUTE_KEYS_LIST, type RouteKey } from "@/lib/routes";
 
-// Each entry: [PT path, ES path]. Every dedicated page gets bidirectional
-// hreflang alternates, same pattern as the home routes below.
-const bilingualPages: Array<[pt: string, es: string, priority: number]> = [
-  ["/quem-somos", "/es/quienes-somos", 0.8],
-  ["/servicos", "/es/servicios", 0.9],
-  ["/servicos/mao-de-obra-qualificada", "/es/servicios/mano-de-obra-cualificada", 0.7],
-  ["/servicos/edificacao", "/es/servicios/edificacion", 0.7],
-  ["/servicos/obra-civil", "/es/servicios/obra-civil", 0.7],
-  ["/servicos/servicos-auxiliares", "/es/servicios/servicios-auxiliares-construccion", 0.7],
-  ["/projetos", "/es/proyectos", 0.8],
-  ["/contacto", "/es/contacto", 0.8],
-  ["/trabalhe-connosco", "/es/trabaja-con-nosotros", 0.6],
-];
+const PRIORITIES: Partial<Record<RouteKey, number>> = {
+  home: 1,
+  servicos: 0.9,
+  quemSomos: 0.8,
+  projetos: 0.8,
+  contacto: 0.8,
+  maoDeObra: 0.7,
+  edificacao: 0.7,
+  obraCivil: 0.7,
+  servicosAuxiliares: 0.7,
+  trabalheConnosco: 0.6,
+};
 
-export default function sitemap(): MetadataRoute.Sitemap {
+const LEGAL_KEYS: readonly string[] = LEGAL_ROUTE_KEYS_LIST;
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const { domain, isProduction } = await getRequestContext();
+  // R3 (preview never indexable) and .com (a redirect hub with no content
+  // of its own, once the Vercel-level redirect exists this is never even
+  // requested) both get an empty sitemap.
+  if (!isProduction || domain === "com") return [];
+
   const lastModified = new Date();
-  const homeLanguages = { "pt-PT": SITE_URL, "es-ES": `${SITE_URL}/es`, "x-default": SITE_URL };
-  const legalPages = ["/privacidade", "/aviso-legal", "/politica-de-cookies", "/declaracao-de-acessibilidade"];
 
-  const bilingualEntries = bilingualPages.flatMap(([pt, es, priority]) => {
-    const languages = { "pt-PT": `${SITE_URL}${pt}`, "es-ES": `${SITE_URL}${es}`, "x-default": `${SITE_URL}${pt}` };
-    return [
-      { url: `${SITE_URL}${pt}`, lastModified, changeFrequency: "monthly" as const, priority, alternates: { languages } },
-      { url: `${SITE_URL}${es}`, lastModified, changeFrequency: "monthly" as const, priority, alternates: { languages } },
-    ];
+  return ALL_ROUTE_KEYS.map((key) => {
+    const route = ROUTES[key];
+    const isLegal = LEGAL_KEYS.includes(key);
+    return {
+      url: `${DOMAIN_ORIGINS[domain]}${route[domain]}`,
+      lastModified,
+      changeFrequency: isLegal ? ("yearly" as const) : ("monthly" as const),
+      priority: PRIORITIES[key] ?? (isLegal ? 0.3 : 0.5),
+      alternates: {
+        // pt-PT is always the x-default: PT is the primary market, same
+        // convention this sitemap used before the domain split.
+        languages: {
+          "pt-PT": `${DOMAIN_ORIGINS.pt}${route.pt}`,
+          "es-ES": `${DOMAIN_ORIGINS.es}${route.es}`,
+          "x-default": `${DOMAIN_ORIGINS.pt}${route.pt}`,
+        },
+      },
+    };
   });
-
-  return [
-    { url: SITE_URL, lastModified, changeFrequency: "monthly", priority: 1, alternates: { languages: homeLanguages } },
-    {
-      url: `${SITE_URL}/es`,
-      lastModified,
-      changeFrequency: "monthly",
-      priority: 1,
-      alternates: { languages: homeLanguages },
-    },
-    ...bilingualEntries,
-    ...legalPages.map((path) => ({
-      url: `${SITE_URL}${path}`,
-      lastModified,
-      changeFrequency: "yearly" as const,
-      priority: 0.3,
-    })),
-  ];
 }

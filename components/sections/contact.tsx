@@ -1,6 +1,7 @@
 "use client";
 
 import { Mail, MapPin, Phone } from "lucide-react";
+import { sendGTMEvent } from "@next/third-parties/google";
 import { useI18n } from "@/lib/i18n-context";
 import { contactData } from "@/lib/contact-data";
 
@@ -17,7 +18,11 @@ export function Contact({ headingLevel = "h2" }: { headingLevel?: "h1" | "h2" } 
             <Heading className="sec-title" dangerouslySetInnerHTML={{ __html: t("contact.h2") }} />
             <p>{t("contact.p")}</p>
             <div className="contact-list">
-              <a href={info.phoneHref} className="crow">
+              <a
+                href={info.phoneHref}
+                className="crow"
+                onClick={() => sendGTMEvent({ event: "phone_click" })}
+              >
                 <span className="ic">
                   <Phone />
                 </span>
@@ -26,7 +31,11 @@ export function Contact({ headingLevel = "h2" }: { headingLevel?: "h1" | "h2" } 
                   <div className="val">{info.phone}</div>
                 </div>
               </a>
-              <a href={`mailto:${info.email}`} className="crow">
+              <a
+                href={`mailto:${info.email}`}
+                className="crow"
+                onClick={() => sendGTMEvent({ event: "email_click" })}
+              >
                 <span className="ic">
                   <Mail />
                 </span>

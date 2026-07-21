@@ -6,17 +6,24 @@ import { ServiceDetail } from "@/components/sections/service-detail";
 import { CtaBand } from "@/components/sections/cta-band";
 import { I18nProvider } from "@/lib/i18n-context";
 import { translations } from "@/lib/translations";
+import { ROUTES } from "@/lib/routes";
+import { DOMAIN_ORIGINS } from "@/lib/site-config";
 
 const TITLE = `${translations.es["svc3.h3"]} | Conceptual City`;
 const DESCRIPTION = translations.es["svcpage3.intro"];
-const PATH = "/es/servicios/obra-civil";
+// Absolute — see app/es/page.tsx for why (still reachable via .pt today).
+const PATH = `${DOMAIN_ORIGINS.es}${ROUTES.obraCivil.es}`;
 
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: {
     canonical: PATH,
-    languages: { "pt-PT": "/servicos/obra-civil", "es-ES": PATH, "x-default": "/servicos/obra-civil" },
+    languages: {
+      "pt-PT": `${DOMAIN_ORIGINS.pt}${ROUTES.obraCivil.pt}`,
+      "es-ES": `${DOMAIN_ORIGINS.es}${ROUTES.obraCivil.es}`,
+      "x-default": `${DOMAIN_ORIGINS.pt}${ROUTES.obraCivil.pt}`,
+    },
   },
   openGraph: { title: TITLE, description: DESCRIPTION, url: PATH, locale: "es_ES" },
   twitter: { title: TITLE, description: DESCRIPTION },
@@ -25,7 +32,7 @@ export const metadata: Metadata = {
 export default function ObraCivilEsPage() {
   return (
     <I18nProvider fixedLang="es">
-      <SiteHeader />
+      <SiteHeader currentRoute="obraCivil" />
       <main>
         <ServiceDetail index={3} />
         <CtaBand />

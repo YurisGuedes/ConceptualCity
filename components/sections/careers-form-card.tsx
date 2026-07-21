@@ -2,6 +2,7 @@
 
 import { useRef, useState, type ChangeEvent, type FormEvent } from "react";
 import { ArrowRight, CheckCircle2, Loader2, Paperclip } from "lucide-react";
+import { sendGTMEvent } from "@next/third-parties/google";
 import { useI18n } from "@/lib/i18n-context";
 
 type Status = "idle" | "loading" | "success" | "error";
@@ -61,6 +62,7 @@ export function CareersFormCard() {
 
       const res = await fetch("/api/careers", { method: "POST", body });
       if (!res.ok) throw new Error("request_failed");
+      sendGTMEvent({ event: "careers_form_submit" });
       setStatus("success");
     } catch {
       setStatus("error");

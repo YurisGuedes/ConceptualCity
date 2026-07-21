@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { useI18n } from "@/lib/i18n-context";
-import { PAGE_HREFS } from "@/lib/service-pages";
+import { PAGE_HREFS } from "@/lib/routes";
 
 /** Lightweight homepage teaser — the full application form now lives on its
  * own page (/trabalhe-connosco), linked from here. Keeps the same

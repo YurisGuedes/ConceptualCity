@@ -5,10 +5,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { useI18n } from "@/lib/i18n-context";
 import type { Lang } from "@/lib/translations";
-import { PAGE_HREFS } from "@/lib/service-pages";
+import { PAGE_HREFS, ROUTES, type RouteKey } from "@/lib/routes";
+import { DOMAIN_ORIGINS } from "@/lib/site-config";
 
-export function SiteHeader() {
-  const { lang, setLang, t } = useI18n();
+/** Pass the page's own key from lib/routes.ts so the language switcher can
+ * link to the *equivalent* page on the other domain (not just its home) —
+ * omit it on pages with no entry in ROUTES and it falls back to that
+ * domain's home, same as the plan's spec for pages with no counterpart. */
+export function SiteHeader({ currentRoute }: { currentRoute?: RouteKey } = {}) {
+  const { lang, t } = useI18n();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -25,11 +30,12 @@ export function SiteHeader() {
 
   // Anchors only exist on the homepage sections — from a dedicated subpage
   // (e.g. /quem-somos) a bare "#services" href would be a dead link (no such
-  // id on that page), so every anchor is prefixed with the current
-  // language's full homepage path, even on the homepage itself: a same-path
-  // "/#services" link still just smooth-scrolls with no reload, same as a
-  // bare "#services" would, so there's no downside to always being explicit.
-  const homePrefix = lang === "es" ? "/es" : "/";
+  // id on that page), so every anchor is prefixed with the homepage path,
+  // even on the homepage itself: a same-path "/#services" link still just
+  // smooth-scrolls with no reload, same as a bare "#services" would, so
+  // there's no downside to always being explicit. Always "/" regardless of
+  // language: each domain's own home lives at its own root now.
+  const homePrefix = "/";
 
   const links: { href: string; key: string }[] = [
     { href: "#top", key: "nav.home" },
@@ -57,16 +63,26 @@ export function SiteHeader() {
         </nav>
         <div className="nav-right">
           <div className="lang">
-            {(["pt", "es"] as Lang[]).map((code) => (
-              <button
-                key={code}
-                data-lang={code}
-                className={lang === code ? "active" : undefined}
-                onClick={() => setLang(code)}
-              >
-                {code.toUpperCase()}
-              </button>
-            ))}
+            {(["pt", "es"] as Lang[]).map((code) => {
+              if (code === lang) {
+                return (
+                  <span key={code} data-lang={code} className="active">
+                    {code.toUpperCase()}
+                  </span>
+                );
+              }
+              // Crossing languages now means crossing domains — a real link
+              // to the equivalent page on the other domain (or that domain's
+              // home, if this page has no ROUTES entry), not client state.
+              const href = currentRoute
+                ? `${DOMAIN_ORIGINS[code]}${ROUTES[currentRoute][code]}`
+                : DOMAIN_ORIGINS[code];
+              return (
+                <a key={code} data-lang={code} href={href}>
+                  {code.toUpperCase()}
+                </a>
+              );
+            })}
           </div>
           <a href={`${homePrefix}#contact`} className="nav-cta">
             {t("nav.cta")}

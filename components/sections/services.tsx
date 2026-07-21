@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { useI18n } from "@/lib/i18n-context";
-import { SERVICE_HREFS } from "@/lib/service-pages";
+import { SERVICE_HREFS } from "@/lib/routes";
 
 const SERVICES = [
   { num: "01", img: "servico-01-maodeobra.jpg", alt: "Grua e edifício em construção", h3: "svc1.h3", p: "svc1.p" },

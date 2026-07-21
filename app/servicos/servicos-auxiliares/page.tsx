@@ -6,10 +6,12 @@ import { ServiceDetail } from "@/components/sections/service-detail";
 import { CtaBand } from "@/components/sections/cta-band";
 import { I18nProvider } from "@/lib/i18n-context";
 import { translations } from "@/lib/translations";
+import { ROUTES } from "@/lib/routes";
+import { DOMAIN_ORIGINS } from "@/lib/site-config";
 
 const TITLE = `${translations.pt["svc4.h3"]} | Conceptual City`;
 const DESCRIPTION = translations.pt["svcpage4.intro"];
-const PATH = "/servicos/servicos-auxiliares";
+const PATH = ROUTES.servicosAuxiliares.pt;
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -17,9 +19,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: PATH,
     languages: {
-      "pt-PT": PATH,
-      "es-ES": "/es/servicios/servicios-auxiliares-construccion",
-      "x-default": PATH,
+      "pt-PT": `${DOMAIN_ORIGINS.pt}${ROUTES.servicosAuxiliares.pt}`,
+      "es-ES": `${DOMAIN_ORIGINS.es}${ROUTES.servicosAuxiliares.es}`,
+      "x-default": `${DOMAIN_ORIGINS.pt}${ROUTES.servicosAuxiliares.pt}`,
     },
   },
   openGraph: { title: TITLE, description: DESCRIPTION, url: PATH, locale: "pt_PT" },
@@ -29,7 +31,7 @@ export const metadata: Metadata = {
 export default function ServicosAuxiliaresPage() {
   return (
     <I18nProvider fixedLang="pt">
-      <SiteHeader />
+      <SiteHeader currentRoute="servicosAuxiliares" />
       <main>
         <ServiceDetail index={4} />
         <CtaBand />
