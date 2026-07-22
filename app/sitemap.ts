@@ -2,6 +2,8 @@ import type { MetadataRoute } from "next";
 import { getRequestContext } from "@/lib/request-context";
 import { DOMAIN_ORIGINS } from "@/lib/site-config";
 import { ROUTES, ALL_ROUTE_KEYS, LEGAL_ROUTE_KEYS_LIST, type RouteKey } from "@/lib/routes";
+import { client } from "@/sanity/lib/client";
+import { ALL_POST_SLUGS_QUERY } from "@/sanity/lib/queries";
 
 const PRIORITIES: Partial<Record<RouteKey, number>> = {
   home: 1,
@@ -27,7 +29,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const lastModified = new Date();
 
-  return ALL_ROUTE_KEYS.map((key) => {
+  const staticEntries: MetadataRoute.Sitemap = ALL_ROUTE_KEYS.map((key) => {
     const route = ROUTES[key];
     const isLegal = LEGAL_KEYS.includes(key);
     return {
@@ -46,4 +48,27 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       },
     };
   });
+
+  // Blog is PT-only (confirmed decision) — nothing more to add on .es.
+  if (domain !== "pt") return staticEntries;
+
+  let blogEntries: MetadataRoute.Sitemap = [];
+  try {
+    const posts = await client.fetch<Array<{ slug: string; publishedAt: string }>>(ALL_POST_SLUGS_QUERY);
+    blogEntries = [
+      { url: `${DOMAIN_ORIGINS.pt}/blog`, lastModified, changeFrequency: "daily", priority: 0.7 },
+      ...posts.map((post) => ({
+        url: `${DOMAIN_ORIGINS.pt}/${post.slug}`,
+        lastModified: new Date(post.publishedAt),
+        changeFrequency: "monthly" as const,
+        priority: 0.6,
+      })),
+    ];
+  } catch (err) {
+    // A Sanity outage/misconfiguration should cost the sitemap its blog
+    // URLs, never the whole sitemap (and every static route's SEO with it).
+    console.error("[sitemap] failed to fetch blog slugs, omitting from sitemap", err);
+  }
+
+  return [...staticEntries, ...blogEntries];
 }

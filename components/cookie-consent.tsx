@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { translations, type Lang } from "@/lib/translations";
 import { ROUTES } from "@/lib/routes";
 import { updateConsent, type ConsentStatus } from "@/lib/consent";
@@ -12,8 +13,10 @@ const STORAGE_KEY = "cc-consent";
  * domain/page. Shows once per browser; a prior choice is re-applied to
  * Consent Mode on every later visit without showing the banner again. */
 export function CookieConsent({ lang }: { lang: Lang }) {
+  const pathname = usePathname();
   const [visible, setVisible] = useState(false);
   const t = (key: string) => translations[lang][key] ?? key;
+  const isAdmin = pathname?.startsWith("/admin");
 
   useEffect(() => {
     let stored: string | null = null;
@@ -39,7 +42,9 @@ export function CookieConsent({ lang }: { lang: Lang }) {
     setVisible(false);
   };
 
-  if (!visible) return null;
+  // The Studio (/admin) is a full-viewport editor UI — a fixed cookie
+  // banner would overlap it, and it's not a page real visitors reach.
+  if (isAdmin || !visible) return null;
 
   return (
     <div className="cookie-banner" role="dialog" aria-label={t("cookiebanner.accept")}>

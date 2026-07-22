@@ -11,7 +11,9 @@ export default async function robots(): Promise<MetadataRoute.Robots> {
   }
 
   return {
-    rules: { userAgent: "*", allow: "/" },
+    // /admin is the embedded Sanity Studio — a CMS login/editor UI, not a
+    // page for search engines (also has its own noindex, see app/admin/[[...tool]]/page.tsx).
+    rules: { userAgent: "*", allow: "/", disallow: ["/admin"] },
     sitemap: `${origin}/sitemap.xml`,
   };
 }

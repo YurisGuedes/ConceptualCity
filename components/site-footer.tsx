@@ -62,7 +62,9 @@ export function SiteFooter() {
             <Link href={ROUTES.politicaCookies[lang]}>{t("cookies.title")}</Link>
             <Link href={ROUTES.acessibilidade[lang]}>{t("accessibility.title")}</Link>
           </div>
-          <span>Portugal · España</span>
+          <span>
+            Portugal · España <Link href="/admin" className="foot-admin" aria-label="Admin">·</Link>
+          </span>
         </div>
       </div>
     </footer>
