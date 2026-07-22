@@ -14,23 +14,10 @@ import { I18nProvider } from "@/lib/i18n-context";
 import { translations } from "@/lib/translations";
 import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
-import { POST_BY_SLUG_QUERY, RELATED_POSTS_QUERY, ALL_POST_SLUGS_QUERY } from "@/sanity/lib/queries";
+import { POST_BY_SLUG_QUERY, RELATED_POSTS_QUERY } from "@/sanity/lib/queries";
 import type { Post, PostCard as PostCardData } from "@/sanity/lib/types";
 
 const t = (key: string) => translations.pt[key] ?? key;
-
-// Pre-generates every published post at build time; new/updated posts
-// still work immediately at request time (dynamicParams defaults to true)
-// and the webhook (app/api/revalidate/route.ts) keeps existing ones fresh.
-export async function generateStaticParams() {
-  try {
-    const posts = await client.fetch(ALL_POST_SLUGS_QUERY);
-    return posts.map((post: { slug: string }) => ({ slug: post.slug }));
-  } catch (err) {
-    console.error("[blog] generateStaticParams failed, no posts pre-rendered at build time", err);
-    return [];
-  }
-}
 
 async function getPost(slug: string): Promise<Post | null> {
   return client.fetch<Post | null>(POST_BY_SLUG_QUERY, { slug }, { next: { tags: ["post"] } });
