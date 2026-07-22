@@ -592,7 +592,7 @@ footer{border-top:1px solid var(--line);padding:60px 0 36px}
 .blog-related h2{font-size:22px;font-weight:700;margin-bottom:24px}
 .blog-related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 
-.blog-article{padding:56px 0}
+.blog-article{padding:110px 0 56px}
 .blog-article-back{display:inline-flex;align-items:center;gap:8px;font-size:14px;color:var(--tx-dim);margin-bottom:24px;transition:color .2s}
 .blog-article-back:hover{color:var(--amber)}
 .blog-article-hero{position:relative;aspect-ratio:16/8;border-radius:20px;overflow:hidden;margin-bottom:36px}
