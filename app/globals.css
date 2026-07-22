@@ -528,8 +528,9 @@ footer{border-top:1px solid var(--line);padding:60px 0 36px}
 .foot-legal{display:flex;gap:18px;flex-wrap:wrap}
 .foot-legal a{color:var(--tx-dim2);transition:color .2s}
 .foot-legal a:hover{color:var(--amber)}
-.foot-admin{display:inline-block;color:var(--tx-dim2);opacity:.35;padding:0 4px;transition:opacity .2s}
-.foot-admin:hover,.foot-admin:focus-visible{opacity:1}
+.foot-admin{display:inline-flex;align-items:center;vertical-align:middle;color:var(--tx-dim2);opacity:.6;padding:6px;margin-left:2px;transition:opacity .2s,color .2s}
+.foot-admin svg{width:16px;height:16px}
+.foot-admin:hover,.foot-admin:focus-visible{opacity:1;color:var(--amber)}
 
 /* ============ BLOG ============ */
 .blog-hero{position:relative;min-height:600px;display:flex;align-items:flex-end;overflow:hidden;isolation:isolate;padding:60px 0 56px}

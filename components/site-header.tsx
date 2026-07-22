@@ -60,6 +60,12 @@ export function SiteHeader({ currentRoute }: { currentRoute?: RouteKey } = {}) {
           <Link href={PAGE_HREFS.trabalheConnosco[lang]} onClick={() => setOpen(false)}>
             {t("nav.careers")}
           </Link>
+          {/* Blog is PT-only for now — no ES equivalent to link to. */}
+          {lang === "pt" && (
+            <Link href="/blog" onClick={() => setOpen(false)}>
+              {t("nav.blog")}
+            </Link>
+          )}
         </nav>
         <div className="nav-right">
           <div className="lang">

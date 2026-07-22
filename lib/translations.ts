@@ -4,7 +4,7 @@ export const translations: Record<Lang, Record<string, string>> = {
   pt:{
     'meta.title':'Conceptual City: Mão de obra qualificada, Portugal e Espanha',
     'meta.description':'Equipas profissionais especializadas para construção, obra civil e infraestrutura em Portugal e Espanha. Integração rápida, mobilidade e organização.',
-    'nav.home':'Início','nav.about':'Quem Somos','nav.services':'Serviços','nav.projects':'Projetos','nav.contact':'Contacto','nav.careers':'Carreiras','nav.cta':'Solicitar proposta',
+    'nav.home':'Início','nav.about':'Quem Somos','nav.services':'Serviços','nav.projects':'Projetos','nav.contact':'Contacto','nav.careers':'Carreiras','nav.blog':'Blog','nav.cta':'Solicitar proposta',
     'hero.h1':'Mão de obra qualificada para construção',
     'hero.lead':'Equipas especializadas para edificação, obra civil e infraestruturas em Portugal e Espanha.',
     'hero.cta1':'Solicitar proposta','hero.cta2':'Conhecer serviços',

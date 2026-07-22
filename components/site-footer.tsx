@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { Dot } from "lucide-react";
 import { sendGTMEvent } from "@next/third-parties/google";
 import { useI18n } from "@/lib/i18n-context";
 import { contactData } from "@/lib/contact-data";
@@ -63,7 +64,10 @@ export function SiteFooter() {
             <Link href={ROUTES.acessibilidade[lang]}>{t("accessibility.title")}</Link>
           </div>
           <span>
-            Portugal · España <Link href="/admin" className="foot-admin" aria-label="Admin">·</Link>
+            Portugal · España
+            <Link href="/admin" className="foot-admin" aria-label="Admin">
+              <Dot />
+            </Link>
           </span>
         </div>
       </div>
