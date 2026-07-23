@@ -3,10 +3,12 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { sendGTMEvent } from "@next/third-parties/google";
 import { useI18n } from "@/lib/i18n-context";
 import type { Lang } from "@/lib/translations";
 import { PAGE_HREFS, ROUTES, type RouteKey } from "@/lib/routes";
 import { DOMAIN_ORIGINS } from "@/lib/site-config";
+import { contactData } from "@/lib/contact-data";
 
 /** Pass the page's own key from lib/routes.ts so the language switcher can
  * link to the *equivalent* page on the other domain (not just its home) —
@@ -90,7 +92,13 @@ export function SiteHeader({ currentRoute }: { currentRoute?: RouteKey } = {}) {
               );
             })}
           </div>
-          <a href={`${homePrefix}#contact`} className="nav-cta">
+          <a
+            href={contactData[lang].whatsappHref}
+            target="_blank"
+            rel="noopener"
+            className="nav-cta"
+            onClick={() => sendGTMEvent({ event: "whatsapp_click" })}
+          >
             {t("nav.cta")}
           </a>
           <button
