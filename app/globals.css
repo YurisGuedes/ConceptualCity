@@ -303,13 +303,12 @@ section{position:relative}
 .trades-head .sec-title{color:var(--paper-ink)}
 .trades-head .sec-title .amber{color:var(--amber-deep)}
 .trades-head p{color:#6b6459;max-width:340px;font-size:15px;line-height:1.6}
-.trades-list{border-top:1px solid rgba(26,23,18,.14)}
-.trade{display:grid;grid-template-columns:64px 1fr auto;gap:24px;align-items:center;padding:24px 8px;border-bottom:1px solid rgba(26,23,18,.14);transition:padding .3s var(--ease),background .3s}
-.trade:hover{padding-left:22px;background:linear-gradient(90deg,rgba(244,167,44,.16),transparent)}
-.trade .idx{font-size:14px;font-weight:700;color:var(--amber-deep);font-variant-numeric:tabular-nums}
-.trade .name{font-size:clamp(20px,2.6vw,30px);font-weight:700;letter-spacing:-.01em;transition:color .3s}
+.trades-list{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid rgba(26,23,18,.14);border-left:1px solid rgba(26,23,18,.14)}
+.trade{display:flex;align-items:baseline;gap:14px;padding:22px 24px;border-right:1px solid rgba(26,23,18,.14);border-bottom:1px solid rgba(26,23,18,.14);transition:background .25s}
+.trade:hover{background:rgba(244,167,44,.1)}
+.trade .idx{font-size:13px;font-weight:700;color:var(--amber-deep);font-variant-numeric:tabular-nums;flex-shrink:0}
+.trade .name{font-size:17px;font-weight:700;letter-spacing:-.01em;line-height:1.3;transition:color .25s}
 .trade:hover .name{color:var(--amber-deep)}
-.trade .role{font-size:14px;color:#6b6459;text-align:right;max-width:300px;line-height:1.5}
 
 /* ============ (6) PILARES split (preto + foto) ============ */
 .pillars-sec{background:var(--bg)}
@@ -626,6 +625,7 @@ footer{border-top:1px solid var(--line);padding:60px 0 36px}
   .blog-grid,.blog-related-grid{grid-template-columns:repeat(2,1fr)}
   .blog-featured{grid-template-columns:1fr}
   .blog-featured-media{min-height:260px}
+  .trades-list{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:820px){
   .wrap{padding:0 24px}
@@ -642,8 +642,7 @@ footer{border-top:1px solid var(--line);padding:60px 0 36px}
   .hero::after{background:linear-gradient(180deg, rgba(9,9,12,.72) 0%, rgba(9,9,12,.4) 40%, rgba(9,9,12,.82) 100%)}
   .pad{padding:76px 0}
   .trades-head{align-items:flex-start}
-  .trade{grid-template-columns:44px 1fr;gap:14px}
-  .trade .role{display:none}
+  .trades-list{grid-template-columns:1fr}
   .cta-band::after{background:linear-gradient(180deg, rgba(11,11,14,.9) 0%, rgba(11,11,14,.6) 50%, rgba(11,11,14,.85) 100%)}
   .cta-inner{padding:70px 0}
   .proj-row{grid-template-columns:1fr}

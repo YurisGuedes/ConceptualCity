@@ -2,7 +2,7 @@
 
 import { useI18n } from "@/lib/i18n-context";
 
-const TRADES = [1, 2, 3, 4, 5, 6] as const;
+const TRADES = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15] as const;
 
 export function Trades({ headingLevel = "h2" }: { headingLevel?: "h1" | "h2" } = {}) {
   const { t } = useI18n();
@@ -26,7 +26,6 @@ export function Trades({ headingLevel = "h2" }: { headingLevel?: "h1" | "h2" } =
             <div className="trade" key={n}>
               <span className="idx">/{String(n).padStart(2, "0")}</span>
               <span className="name">{t(`trade${n}.name`)}</span>
-              <span className="role">{t(`trade${n}.role`)}</span>
             </div>
           ))}
         </div>

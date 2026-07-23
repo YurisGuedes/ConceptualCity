@@ -7,6 +7,8 @@ import { useI18n } from "@/lib/i18n-context";
 
 type Status = "idle" | "loading" | "success" | "error";
 
+const TRADE_NUMBERS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14] as const;
+
 /** Just the form card (no section wrapper/background/copy) — reused by the
  * dedicated /trabalhe-connosco page, centered on its own. The homepage no
  * longer embeds the full form; it links out via CareersBanner instead. */
@@ -121,12 +123,11 @@ export function CareersFormCard() {
               <label htmlFor="cf-trade">{t("cf.label.trade")}</label>
               <select id="cf-trade" value={trade} onChange={(e) => setTrade(e.target.value)}>
                 <option value="">{t("cf.placeholder.trade")}</option>
-                <option value={t("trade1.name")}>{t("trade1.name")}</option>
-                <option value={t("trade2.name")}>{t("trade2.name")}</option>
-                <option value={t("trade3.name")}>{t("trade3.name")}</option>
-                <option value={t("trade4.name")}>{t("trade4.name")}</option>
-                <option value={t("trade5.name")}>{t("trade5.name")}</option>
-                <option value={t("trade6.name")}>{t("trade6.name")}</option>
+                {TRADE_NUMBERS.map((n) => (
+                  <option key={n} value={t(`trade${n}.name`)}>
+                    {t(`trade${n}.name`)}
+                  </option>
+                ))}
                 <option value={t("cf.trade.other")}>{t("cf.trade.other")}</option>
               </select>
             </div>
