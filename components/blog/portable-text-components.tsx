@@ -3,6 +3,17 @@ import type { PortableTextComponents } from "next-sanity";
 import { urlFor } from "@/sanity/lib/image";
 
 export const portableTextComponents: PortableTextComponents = {
+  marks: {
+    link: ({ value, children }) => {
+      const href = value?.href ?? "#";
+      const isInternal = href.startsWith("/");
+      return (
+        <a href={href} target={isInternal ? undefined : "_blank"} rel={isInternal ? undefined : "noopener"}>
+          {children}
+        </a>
+      );
+    },
+  },
   types: {
     image: ({ value }) => {
       if (!value?.asset?._ref) return null;

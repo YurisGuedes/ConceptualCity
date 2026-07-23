@@ -109,7 +109,19 @@ export const postType = defineType({
       type: "array",
       group: "content",
       of: [
-        { type: "block" },
+        {
+          type: "block",
+          marks: {
+            annotations: [
+              {
+                name: "link",
+                type: "object",
+                title: "Link",
+                fields: [defineField({ name: "href", title: "URL", type: "url" })],
+              },
+            ],
+          },
+        },
         {
           type: "image",
           options: { hotspot: true },
