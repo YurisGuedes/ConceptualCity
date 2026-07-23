@@ -103,7 +103,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               priority
             />
           </div>
-          <header className="blog-article-header">
+          <div className="blog-article-header">
             {post.category && <span className="blog-cat-tag">{post.category.title}</span>}
             <h1>{post.title}</h1>
             <div className="blog-article-meta">
@@ -119,7 +119,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 {Math.max(1, post.readTimeMinutes)} {t("blog.card.readTimeSuffix")}
               </span>
             </div>
-          </header>
+          </div>
           <div className="blog-article-body">
             <PortableText value={post.body} components={portableTextComponents} />
           </div>
